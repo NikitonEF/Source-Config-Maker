@@ -1,0 +1,657 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="conmaker.Views.KeyboardControl"
+             xmlns:vm="using:conmaker.ViewModels"
+             x:DataType="vm:BindsPanelViewModel">
+
+    <UserControl.Styles>
+    <!-- Selector="Button" означает: применить ко всем элементам Button в этом файле -->
+    <Style Selector="Button">
+        <!-- Назначаем команду -->
+        <Setter Property="Command" Value="{Binding EditBindCommand}" />
+        <Setter Property="Focusable" Value="False"/>
+
+        <!-- А вот тут магия! $self указывает на текущую кнопку. 
+             Мы говорим: возьми свой собственный текст (Content) и отправь его как параметр! -->
+        <Setter Property="CommandParameter" Value="{Binding $self.Content}" />
+    </Style>
+</UserControl.Styles>
+
+    <Grid ColumnDefinitions="15*, 3*, 4*">
+        <Border Grid.Column="0" Background="Maroon" Margin="0,0,0,0" />
+            <Grid RowDefinitions="*, *, *, *, *, *">
+                <Grid Grid.Row="0" ColumnDefinitions="1*, 0.5*, 1*, 1*, 1*, 1*, 0.5*, 1*, 1*, 1*, 1*, 0.5*, 1*, 1*, 1*, 1*" Margin="0,0,0,0">
+                    <Button Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="Esc">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Esc"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Esc].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="F1">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F1"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F1].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="F2">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F2"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F2].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="F3">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F3"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F3].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="F4">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F4"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F4].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="F5">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F5"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F5].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="8" Command="{Binding EditBindCommand}" CommandParameter="F6">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F6"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F6].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="9" Command="{Binding EditBindCommand}" CommandParameter="F7">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F7"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F7].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="10" Command="{Binding EditBindCommand}" CommandParameter="F8">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F8"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F8].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="12" Command="{Binding EditBindCommand}" CommandParameter="F9">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F9"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F9].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="13" Command="{Binding EditBindCommand}" CommandParameter="F10">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F10"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F10].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="14" Command="{Binding EditBindCommand}" CommandParameter="F11">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F11"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F11].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="15" Command="{Binding EditBindCommand}" CommandParameter="F12">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F12"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F12].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="1" ColumnDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2*">
+                    <Button Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="~">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="~"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[~].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="1">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="1"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[1].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="2">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="2"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[2].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="3">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="3"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[3].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="4">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="4"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[4].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="5">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="5"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[5].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="6" Command="{Binding EditBindCommand}" CommandParameter="6">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="6"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[6].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="7">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="7"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[7].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="8" Command="{Binding EditBindCommand}" CommandParameter="8">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="8"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[8].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="9" Command="{Binding EditBindCommand}" CommandParameter="9">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="9"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[9].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="10" Command="{Binding EditBindCommand}" CommandParameter="0">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="0"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[0].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="11" Command="{Binding EditBindCommand}" CommandParameter="-">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="-"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[-].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="12" Command="{Binding EditBindCommand}" CommandParameter="+">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="+"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[+].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="13" Command="{Binding EditBindCommand}" CommandParameter="Backspace">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Backspace"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Backspace].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="2" ColumnDefinitions="1.5*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1.5*">
+                     <Button Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="Tab">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Tab"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Tab].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="Q">
+                        <StackPanel>
+                            <TextBlock Text="Q" FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <!-- Магия: стучимся в словарь Keys по ключу [Q] и берем оттуда CommandText -->
+                            <TextBlock Text="{Binding Keys[Q].CommandText}" FontSize="10" Foreground="Gray"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="W">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="W"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[W].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="E">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="E"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[E].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="R">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="R"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[R].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="T">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="T"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[T].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="6" Command="{Binding EditBindCommand}" CommandParameter="Y">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Y"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Y].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="U">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="U"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[U].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="8" Command="{Binding EditBindCommand}" CommandParameter="I">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="I"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[I].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="9" Command="{Binding EditBindCommand}" CommandParameter="O">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="O"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[O].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="10" Command="{Binding EditBindCommand}" CommandParameter="P">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="P"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[P].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="11" Command="{Binding EditBindCommand}" CommandParameter="LBRACKET">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="["/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[LBRACKET].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="12" Command="{Binding EditBindCommand}" CommandParameter="RBRACKET">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="]"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[RBRACKET].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="13" Command="{Binding EditBindCommand}" CommandParameter="BACKSLASH">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="\"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[BACKSLASH].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="3" ColumnDefinitions="2.*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2.*">
+                    <Button Grid.Column="0" Content="CAPS LOCK" Margin="2" />
+                    <Button Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="A">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="A"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[A].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="S">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="S"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[S].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="D">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="D"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[D].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="F">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="F"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[F].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="G">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="G"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[G].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="6" Command="{Binding EditBindCommand}" CommandParameter="H">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="H"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[H].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="J">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="J"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[J].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="8" Command="{Binding EditBindCommand}" CommandParameter="K">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="K"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[K].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="9" Command="{Binding EditBindCommand}" CommandParameter="L">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="L"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[L].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="10" Command="{Binding EditBindCommand}" CommandParameter=";">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text=";"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[;].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="11" Command="{Binding EditBindCommand}" CommandParameter="QUOTE">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="'"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[QUOTE].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="12" Command="{Binding EditBindCommand}" CommandParameter="ENTER">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="ENTER"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[ENTER].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="4" ColumnDefinitions="2.25*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2.25*">
+                    <Button Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="SHIFT">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="SHIFT"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[SHIFT].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="Z">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Z"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Z].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="X">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="X"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[X].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="C">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="C"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[C].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="V">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="V"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[V].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="B">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="B"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[B].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="6" Command="{Binding EditBindCommand}" CommandParameter="N">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="N"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[N].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="M">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="M"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[M].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="8" Command="{Binding EditBindCommand}" CommandParameter=",">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text=","/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[,].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="9" Command="{Binding EditBindCommand}" CommandParameter=".">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="."/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[.].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="10" Command="{Binding EditBindCommand}" CommandParameter="/">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="/"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[/].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="11" Command="{Binding EditBindCommand}" CommandParameter="SHIFT">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="SHIFT"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[SHIFT].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="5" ColumnDefinitions="1*, 1*, 1*, 5*, 1*, 1*, 1*, 1*">
+                    <Button Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="CTRL">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="CTRL"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[CTRL].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="WIN">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="WIN"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[WIN].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="ALT">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="ALT"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[ALT].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="SPACE">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="SPACE"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[SPACE].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="4" Command="{Binding EditBindCommand}" CommandParameter="ALT">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="ALT"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[ALT].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="5" Command="{Binding EditBindCommand}" CommandParameter="FN">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="FN"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[FN].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="6" Command="{Binding EditBindCommand}" CommandParameter="MENU">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="MENU"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[MENU].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                                        <Button Grid.Column="7" Command="{Binding EditBindCommand}" CommandParameter="CNTR">
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="CNTR"/>
+                            <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[CNTR].CommandText, FallbackValue=''}"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+            </Grid>
+                <Border Grid.Column="1" Background="DarkGreen" Margin="0,0,0,0" >
+                    <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="*, *, *" Margin="0,0,0,0" >
+                        <Button Grid.Row="1" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="INS">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="INS"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[INS].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="1" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="HOME">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="HOME"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[HOME].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="1" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="PG UP">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="PG UP"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[PG UP].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="2" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="DEL">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="DEL"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[DEL].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="2" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="END">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="END"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[END].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="2" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="PG DN">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="PG DN"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[PG DN].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="4" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="UP">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="UP"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[UP].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="5" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="LEFT">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="LEFT"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[LEFT].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="5" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="DOWN">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="DOWN"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[DOWN].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                                                <Button Grid.Row="5" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="RIGHT">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="RIGHT"/>
+                                <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[RIGHT].CommandText, FallbackValue=''}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="2" Background="DarkBlue" >
+                    <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="*, *, *, *" Margin="0,0,0,0" >
+                        <Button Grid.Row="1" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="Num">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="Num"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[Num].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="1" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="/">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="/"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[/].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="1" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="*">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="*"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[*].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="1" Grid.Column="3" Command="{Binding EditBindCommand}" CommandParameter="-">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="-"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[-].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="2" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="7">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="7"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[7].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="2" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="8">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="8"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[8].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="2" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="9">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="9"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[9].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" Command="{Binding EditBindCommand}" CommandParameter="+">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="+"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[+].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="3" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="4">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="4"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[4].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="3" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="5">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="5"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[5].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="3" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="6">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="6"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[6].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="4" Grid.Column="0" Command="{Binding EditBindCommand}" CommandParameter="1">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="1"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[1].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="4" Grid.Column="1" Command="{Binding EditBindCommand}" CommandParameter="2">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="2"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[2].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="4" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter="3">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="3"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[3].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Command="{Binding EditBindCommand}" CommandParameter="ΕΝΤΕΡ">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="ΕΝΤΕΡ"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[ΕΝΤΕΡ].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding EditBindCommand}" CommandParameter="0">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="0"/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[0].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                                        <Button Grid.Row="5" Grid.Column="2" Command="{Binding EditBindCommand}" CommandParameter=".">
+                    <StackPanel>
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="."/>
+                        <TextBlock FontSize="10" Foreground="Gray" Text="{Binding Keys[.].CommandText, FallbackValue=''}"/>
+                    </StackPanel>
+                </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+</UserControl>
