@@ -1,26 +1,9 @@
-﻿using conmaker.Models;
-using Avalonia.Platform.Storage;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace conmaker.ViewModels;
+namespace SourceConfigMaker.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private readonly ConfigState _sharedState;
-
-    public AppUiState UiState { get; }
-    public TopBarViewModel TopBarVm { get; }
-    public BindsPanelViewModel BindsPanelVm { get; }
-
-    public MainViewModel(IStorageProvider storage)
-    {
-        _sharedState = new ConfigState();
-        _sharedState.SetDefaultSettings();
-
-        UiState = new AppUiState();
-
-        TopBarVm = new TopBarViewModel(_sharedState, storage, UiState);
-        BindsPanelVm = new BindsPanelViewModel(_sharedState, UiState);
-
-        TopBarVm.TryRestoreLastConfig();
-    }
+    [ObservableProperty]
+    public partial string Greeting { get; set; } = "Welcome to Avalonia!";
 }

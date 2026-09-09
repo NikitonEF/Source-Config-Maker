@@ -361,3 +361,17 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Models/ChecklistBuilder.cs
+/Models/ConfigState.cs
+/Models/ConfigWriter.cs
+/Models/Keyboardlayoutdata .cs
+/Models/LastConfigPathStore.cs
+/ViewModels/AppUiState.cs
+/ViewModels/BindEditorViewModel.cs
+/ViewModels/BindsPanelViewModel.cs
+/ViewModels/ChecklistDialogViewModel.cs
+/ViewModels/ConfirmDialogViewModel.cs
+/ViewModels/KeyViewModel.cs
+/ViewModels/MainViewModel.cs
+/ViewModels/TopBarViewModel.cs
+/ViewModels/ViewModelBase.cs

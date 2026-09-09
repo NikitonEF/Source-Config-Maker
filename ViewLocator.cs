@@ -2,9 +2,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using conmaker.ViewModels;
+using SourceConfigMaker.ViewModels;
 
-namespace conmaker;
+namespace SourceConfigMaker;
 
 /// <summary>
 /// Given a view model, returns the corresponding view if possible.

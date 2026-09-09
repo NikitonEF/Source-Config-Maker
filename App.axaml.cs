@@ -1,10 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using conmaker.ViewModels;
-using conmaker.Views;
+using SourceConfigMaker.ViewModels;
+using SourceConfigMaker.Views;
 
-namespace conmaker;
+namespace SourceConfigMaker;
 
 public partial class App : Application
 {
@@ -17,44 +17,12 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var window = new MainWindow();
-            desktop.MainWindow = window;
-
-            var mainVm = new MainViewModel(window.StorageProvider);
-            window.DataContext = mainVm;
-
-            // --- Подтверждение (Да/Нет) ---
-            mainVm.TopBarVm.ShowConfirmDialogAsync = async (title, message) =>
+            desktop.MainWindow = new MainWindow
             {
-                var confirmVm = new ConfirmDialogViewModel(title, message);
-                var dialog = new ConfirmDialogView { DataContext = confirmVm };
-
-                confirmVm.CloseRequested += result => dialog.Close(result);
-
-                return await dialog.ShowDialog<bool>(window);
+                DataContext = new MainViewModel(),
             };
-
-            // --- Редактор бинда ---
-            // BindsPanelViewModel сам собирает готовую BindEditorViewModel (с дефолтом и
-            // автодополнением) и просит её показать — View просто открывает окно и ждёт результат.
-            mainVm.BindsPanelVm.ShowBindEditorAsync = async editorVm =>
-            {
-                var dialog = new BindEditorView { DataContext = editorVm };
-                return await dialog.ShowDialog<bool>(window);
-            };
-
-            // --- Чеклист команд ---
-            mainVm.TopBarVm.ShowChecklistAsync = async checklistVm =>
-            {
-                var dialog = new ChecklistView { DataContext = checklistVm };
-                await dialog.ShowDialog(window);
-            };
-
-            base.OnFrameworkInitializationCompleted();
         }
-        else
-        {
-            base.OnFrameworkInitializationCompleted();
-        }
+
+        base.OnFrameworkInitializationCompleted();
     }
 }

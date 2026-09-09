@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>conmaker</RootNamespace>
+    <RootNamespace>SourceConfigMaker</RootNamespace>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
@@ -21,14 +22,5 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\BottomPanelControl.axaml.cs">
-      <DependentUpon>BottomPanelControl.axaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\TopBarControl.axaml.cs">
-      <DependentUpon>TopBarControl.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 </Project>

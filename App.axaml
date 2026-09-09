@@ -1,7 +1,7 @@
 ﻿<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="conmaker.App"
-             xmlns:local="using:conmaker"
+             x:Class="SourceConfigMaker.App"
+             xmlns:local="using:SourceConfigMaker"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -11,29 +11,5 @@
 
     <Application.Styles>
         <FluentTheme />
-        <Style Selector="Button">
-            <Setter Property="Background" Value="#303036" />
-            <Setter Property="Foreground" Value="LightGray" />
-            <Setter Property="CornerRadius" Value="4" />
-            <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="Margin" Value="2" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="VerticalContentAlignment" Value="Top" />
-            <Setter Property="Padding" Value="0,5,0,0"/>
-        </Style>
-
-        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-            <Setter Property="Background" Value="{DynamicResource ThemeHoverColor}" />
-            <Setter Property="Foreground" Value="White" />
-        </Style>
     </Application.Styles>
-
-    <Application.Resources>
-        <SolidColorBrush x:Key="ThemeHoverColor">#FF5B01</SolidColorBrush>
-        <Color x:Key="Color_HL">#FF5B01</Color>
-        <Color x:Key="Color_Apex">#D21404</Color>
-        <Color x:Key="Color_TF2">#9C5320</Color>
-    </Application.Resources>
-
 </Application>

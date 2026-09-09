@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace conmaker;
+namespace SourceConfigMaker;
 
 sealed class Program
 {

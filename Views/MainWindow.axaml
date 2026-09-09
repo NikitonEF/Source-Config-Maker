@@ -1,52 +1,22 @@
 ﻿<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:conmaker.ViewModels"
+        xmlns:vm="using:SourceConfigMaker.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="using:conmaker.Views"
-        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="700"
-        x:Class="conmaker.Views.MainWindow"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="SourceConfigMaker.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Title="Half-Life Config Maker 0.9.0"
-        Width="1650" Height="800"
-        WindowStartupLocation="CenterScreen"
-        ExtendClientAreaToDecorationsHint="True">
+        Icon="/Assets/avalonia-logo.ico"
+        Title="SourceConfigMaker">
 
-    
-    <Window.Styles>
-        
-    </Window.Styles>
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
 
-    <Grid RowDefinitions="30, *">
-        <Panel x:Name="TitleBar" Background="Gray" Grid.Row="0"/>
+    <TextBox Text="{Binding Greeting}"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center" />
 
-        <Grid Grid.Row="1" Background="#1E1E23" RowDefinitions="50, *">
-           <!-- Ссылка на верхнюю плашку -->
-           <views:TopBarControl DataContext="{Binding TopBarVm}" Grid.Row="0" />
-            <Grid Grid.Row="1" ColumnDefinitions="1*, 12*" Margin="0,0,0,0">
-                <Border Grid.Column="0" Background="#990" Margin="0,0,0,0">
-                    <!-- Ссылка на бинды -->
-                    <views:BindsPanelControl Grid.Column="0" />
-                </Border>
-
-                <Grid Grid.Column="1" RowDefinitions="3*, 2*">
-                    <Border Grid.Row="0" Background="#0000" Margin="0,0,0,0">
-                        <!-- Ссылка на клаву -->
-                        <views:KeyboardControl Grid.Row="1" DataContext="{Binding BindsPanelVm}" />
-                    </Border>
-
-                    <Border Grid.Row="1" Background="#9090" Margin="0,0,0,0">
-                        <Grid Grid.Row="1" ColumnDefinitions="3.6*, 1*" Margin="0,0,0,0">
-                            <Border Grid.Column="0" Background="#9909" Margin="0,0,0,0">
-                                <!-- Ссылка на вкладки -->
-                                <views:BottomPanelControl/>
-                            </Border>
-                                <!-- Ссылка на мышь -->
-                                <views:MouseControl Grid.Column="1" DataContext="{Binding BindsPanelVm}" />
-                        </Grid>
-                    </Border>
-                </Grid>
-            </Grid>
-        </Grid>
-    </Grid>
 </Window>
