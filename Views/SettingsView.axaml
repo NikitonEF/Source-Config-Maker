@@ -1,0 +1,227 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SourceConfigMaker.ViewModels"
+             x:Class="SourceConfigMaker.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel"
+             xmlns:views="using:SourceConfigMaker.Views"
+             xmlns:ae="using:AvaloniaEdit">
+
+    <UserControl.Styles>
+        <Style Selector="TabItem">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+            <Setter Property="MinHeight" Value="35"/>
+        </Style>
+        <Style Selector="TabItem:selected">
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+        </Style>
+        
+        <Style Selector="Border.CommandChip">
+            <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeMediumBrush}"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="0,0,10,0"/> 
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Border.CommandChip TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </UserControl.Styles>
+
+    <UserControl.DataTemplates>
+        <DataTemplate x:DataType="vm:CvarItem">
+            <Grid ColumnDefinitions="*, 100" Margin="10,5,20,15">
+                <TextBlock Grid.Column="0" Text="{Binding Name}" 
+                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontWeight="Bold" FontSize="13"
+                           VerticalAlignment="Center" />
+                
+                <TextBox Grid.Column="1" Text="{Binding Value}" 
+                         Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" 
+                         Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                         BorderThickness="1" CornerRadius="4" 
+                         VerticalAlignment="Center" MinHeight="30" Padding="5"/>
+            </Grid>
+        </DataTemplate>
+    </UserControl.DataTemplates>
+
+    <Border Background="Transparent" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="0,0,1,0">
+        <TabControl Margin="0,10,0,0">
+
+            <TabItem Header="БИНДЫ">
+                <ScrollViewer x:Name="BindsDropZone" VerticalScrollBarVisibility="Auto" Margin="0,10,10,10">
+                    <ItemsControl ItemsSource="{Binding ChecklistCategories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:CommandCategory">
+                                <Grid ColumnDefinitions="150, *" Margin="0,0,0,5">
+                                    <Border Grid.Column="0" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Padding="15,10" CornerRadius="4,0,0,4">
+                                        <TextBlock Text="{Binding Name}" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" VerticalAlignment="Center"/>
+                                    </Border>
+                                    
+                                    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="10,10,0,10">
+                                        <ItemsControl ItemsSource="{Binding Commands}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate x:DataType="vm:CommandChipItem">
+                                                    <!-- ИСПРАВЛЕНИЕ: Используем Border для Drag-and-Drop -->
+                                                    <Border Classes="CommandChip"
+                                                            IsVisible="{Binding !IsAssigned}"
+                                                            PointerPressed="CommandChip_PointerPressed">
+                                                        <TextBlock Text="{Binding CommandText}" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="АЛИАСЫ">
+                <Grid ColumnDefinitions="250, *" Margin="0,10,10,10">
+                    <Border Grid.Column="0" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="0,0,1,0" Margin="0,0,10,0">
+                        <views:PresetsView DataContext="{Binding PresetsVm}" />
+                    </Border>
+                    
+                    <Grid Grid.Column="1" RowDefinitions="Auto, *, Auto"
+                          IsEnabled="{Binding PresetsVm.SelectedPreset, Converter={x:Static ObjectConverters.IsNotNull}}">
+                        
+                        <Grid Grid.Row="0" ColumnDefinitions="Auto, *" Margin="0,0,0,10">
+                            <TextBlock Grid.Column="0" Text="Имя алиаса:" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox Grid.Column="1" Text="{Binding PresetsVm.SelectedPreset.Name, Mode=TwoWay}" 
+                                     IsReadOnly="{Binding PresetsVm.SelectedPreset.IsBuiltIn}"
+                                     Background="Transparent" BorderThickness="1"
+                                     Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+                        </Grid>
+
+                        <ae:TextEditor x:Name="AliasContentEditor" Grid.Row="1"
+                                       views:AvaloniaEditTextBehavior.Text="{Binding PresetsVm.SelectedPreset.Content, Mode=TwoWay}"
+                                       IsReadOnly="{Binding PresetsVm.SelectedPreset.IsBuiltIn}"
+                                       Background="Transparent" Foreground="#4682B4" FontFamily="Consolas, Courier New"
+                                       ShowLineNumbers="True" WordWrap="True">
+                        </ae:TextEditor>
+                        
+                        <Grid Grid.Row="2" ColumnDefinitions="*, Auto" Margin="0,10,0,0">
+                            <TextBlock Grid.Column="0" Text="Встроенный пресет (Только для чтения)" 
+                                       Foreground="#DC143C" VerticalAlignment="Center"
+                                       IsVisible="{Binding PresetsVm.SelectedPreset.IsBuiltIn}"/>
+                            
+                            <Button Grid.Column="1" Content="💾 Сохранить изменения" 
+                                    Command="{Binding PresetsVm.SaveChangesCommand}"
+                                    IsVisible="{Binding !PresetsVm.SelectedPreset.IsBuiltIn}"
+                                    Background="#2E8B57" Foreground="White" Cursor="Hand"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="RAW">
+                <ae:TextEditor x:Name="RawEditor" Margin="0,10,10,10"
+                               views:AvaloniaEditTextBehavior.Text="{Binding PresetsVm.RawText, Mode=TwoWay}"
+                               Background="Transparent" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                               FontFamily="Consolas, Courier New"
+                               ShowLineNumbers="True" WordWrap="True">
+                </ae:TextEditor>
+            </TabItem>
+            
+            <TabItem Header="ОСНОВНОЕ">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,10,10">
+                    <Border Background="Transparent" Padding="15">
+                        <ItemsControl ItemsSource="{Binding MainSettings}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><UniformGrid Columns="2" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+            
+            <TabItem Header="СЕТЬ">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,10,10">
+                    <Border Background="Transparent" Padding="15">
+                        <ItemsControl ItemsSource="{Binding NetSettings}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><UniformGrid Columns="2" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="ЗВУК">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,10,10">
+                    <Border Background="Transparent" Padding="15">
+                        <ItemsControl ItemsSource="{Binding SoundSettings}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><UniformGrid Columns="2" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+            
+            <TabItem Header="ВИДЕО">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,10,10,10">
+                    <Border Background="Transparent" Padding="15">
+                        <ItemsControl ItemsSource="{Binding VideoSettings}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate><UniformGrid Columns="2" /></ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </ScrollViewer>
+            </TabItem>
+
+            <TabItem Header="ПРИЦЕЛ">
+                <Grid>
+                    <!-- ЗАГЛУШКА: Показывается, когда прицел выключен -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10" IsVisible="{Binding !IsCrosshairEnabled}">
+                        <TextBlock Text="🎯 ПРИЦЕЛ ОТКЛЮЧЕН" FontSize="20" FontWeight="Bold" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Нажмите кнопку прицела в верхнем меню, чтобы включить его настройки." Foreground="DarkGray" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- РЕДАКТОР: Показывается, когда прицел включен -->
+                    <Grid ColumnDefinitions="*, 240" Margin="0,10,10,10" IsVisible="{Binding IsCrosshairEnabled}">
+                        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto" Margin="0,0,10,0">
+                            <Border Background="Transparent" Padding="15">
+                                <ItemsControl ItemsSource="{Binding CrosshairSettings}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate><StackPanel /></ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Border>
+                        </ScrollViewer>
+
+                        <Border Grid.Column="1" Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" CornerRadius="6" Padding="12">
+                            <Grid RowDefinitions="Auto, *, Auto">
+                                <TextBlock Grid.Row="0" Text="ПРЕВЬЮ" Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" FontSize="11" FontWeight="Bold"
+                                           HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                                <Border Grid.Row="1" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" CornerRadius="4" ClipToBounds="True" 
+                                        HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Stretch="Uniform">
+                                        <Canvas Width="200" Height="200" ClipToBounds="True">
+                                            <Rectangle Canvas.Left="{Binding CrosshairPreview.TopBarX}" Canvas.Top="{Binding CrosshairPreview.TopBarY}" Width="{Binding CrosshairPreview.TopBarWidth}" Height="{Binding CrosshairPreview.TopBarHeight}" Fill="{Binding CrosshairPreview.CrossBrush}"/>
+                                            <Rectangle Canvas.Left="{Binding CrosshairPreview.BottomBarX}" Canvas.Top="{Binding CrosshairPreview.BottomBarY}" Width="{Binding CrosshairPreview.BottomBarWidth}" Height="{Binding CrosshairPreview.BottomBarHeight}" Fill="{Binding CrosshairPreview.CrossBrush}"/>
+                                            <Rectangle Canvas.Left="{Binding CrosshairPreview.LeftBarX}" Canvas.Top="{Binding CrosshairPreview.LeftBarY}" Width="{Binding CrosshairPreview.LeftBarWidth}" Height="{Binding CrosshairPreview.LeftBarHeight}" Fill="{Binding CrosshairPreview.CrossBrush}"/>
+                                            <Rectangle Canvas.Left="{Binding CrosshairPreview.RightBarX}" Canvas.Top="{Binding CrosshairPreview.RightBarY}" Width="{Binding CrosshairPreview.RightBarWidth}" Height="{Binding CrosshairPreview.RightBarHeight}" Fill="{Binding CrosshairPreview.CrossBrush}"/>
+                                            <Rectangle Canvas.Left="{Binding CrosshairPreview.DotX}" Canvas.Top="{Binding CrosshairPreview.DotY}" Width="{Binding CrosshairPreview.DotSize}" Height="{Binding CrosshairPreview.DotSize}" Fill="{Binding CrosshairPreview.CrossBrush}" IsVisible="{Binding CrosshairPreview.DotVisible}"/>
+                                        </Canvas>
+                                    </Viewbox>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Border>
+</UserControl>
