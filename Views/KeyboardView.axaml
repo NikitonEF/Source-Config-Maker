@@ -1,0 +1,177 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SourceConfigMaker.ViewModels"
+             x:Class="SourceConfigMaker.Views.KeyboardView"
+             x:DataType="vm:KeyboardViewModel">
+
+    <UserControl.Styles>
+        <Style Selector="Button.KeyBtn" x:DataType="vm:KeyViewModel">
+            <Setter Property="Background" Value="{Binding ButtonColor}" />
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="DragDrop.AllowDrop" Value="True"/>
+            <Setter Property="Content" Value="{Binding}" />
+            <Setter x:CompileBindings="False" Property="Command" Value="{Binding $parent[UserControl].DataContext.EditBindCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding KeyName}" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate x:DataType="vm:KeyViewModel">
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding DisplayName}"/>
+                            <TextBlock FontSize="10" Foreground="{Binding CommandForeground}" HorizontalAlignment="Center" Text="{Binding DisplayCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="15*, 3*, 4*">
+        
+        <!-- ЛЕВАЯ ЧАСТЬ -->
+        <Border Grid.Column="0" Background="Transparent">
+            <Grid RowDefinitions="*, *, *, *, *, *">
+                <Grid Grid.Row="0" ColumnDefinitions="1*, 0.5*, 1*, 1*, 1*, 1*, 0.5*, 1*, 1*, 1*, 1*, 0.5*, 1*, 1*, 1*, 1*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[Esc]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[F1]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[F2]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[F3]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[F4]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[F5]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="8" DataContext="{Binding Keys[F6]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="9" DataContext="{Binding Keys[F7]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="10" DataContext="{Binding Keys[F8]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="12" DataContext="{Binding Keys[F9]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="13" DataContext="{Binding Keys[F10]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="14" DataContext="{Binding Keys[F11]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="15" DataContext="{Binding Keys[F12]}"/>
+                </Grid>
+
+                <Grid Grid.Row="1" ColumnDefinitions="1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[Tilde]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="1" DataContext="{Binding Keys[1]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[2]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[3]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[4]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[5]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="6" DataContext="{Binding Keys[6]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[7]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="8" DataContext="{Binding Keys[8]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="9" DataContext="{Binding Keys[9]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="10" DataContext="{Binding Keys[0]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="11" DataContext="{Binding Keys[Minus]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="12" DataContext="{Binding Keys[Plus]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="13" DataContext="{Binding Keys[Backspace]}"/>
+                </Grid>
+
+                <Grid Grid.Row="2" ColumnDefinitions="1.5*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1.5*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[Tab]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="1" DataContext="{Binding Keys[Q]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[W]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[E]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[R]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[T]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="6" DataContext="{Binding Keys[Y]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[U]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="8" DataContext="{Binding Keys[I]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="9" DataContext="{Binding Keys[O]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="10" DataContext="{Binding Keys[P]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="11" DataContext="{Binding Keys[LBracket]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="12" DataContext="{Binding Keys[RBracket]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="13" DataContext="{Binding Keys[Backslash]}"/>
+                </Grid>
+
+                <Grid Grid.Row="3" ColumnDefinitions="2*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[CapsLock]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="1" DataContext="{Binding Keys[A]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[S]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[D]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[F]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[G]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="6" DataContext="{Binding Keys[H]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[J]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="8" DataContext="{Binding Keys[K]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="9" DataContext="{Binding Keys[L]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="10" DataContext="{Binding Keys[Semicolon]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="11" DataContext="{Binding Keys[Quote]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="12" DataContext="{Binding Keys[Enter]}"/>
+                </Grid>
+
+                <Grid Grid.Row="4" ColumnDefinitions="2.25*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 1*, 2.25*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[Shift]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="1" DataContext="{Binding Keys[Z]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[X]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[C]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[V]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[B]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="6" DataContext="{Binding Keys[N]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[M]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="8" DataContext="{Binding Keys[Comma]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="9" DataContext="{Binding Keys[Dot]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="10" DataContext="{Binding Keys[Slash]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="11" DataContext="{Binding Keys[Shift]}"/>
+                </Grid>
+
+                <Grid Grid.Row="5" ColumnDefinitions="1.5*, 1.5*, 1.5*, 5*, 1.5*, 1.5*, 1.5*, 1.5*">
+                    <Button Classes="KeyBtn" Grid.Column="0" DataContext="{Binding Keys[Ctrl]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="1" DataContext="{Binding Keys[Win]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="2" DataContext="{Binding Keys[Alt]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="3" DataContext="{Binding Keys[Space]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="4" DataContext="{Binding Keys[Alt]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="5" DataContext="{Binding Keys[Fn]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="6" DataContext="{Binding Keys[Menu]}"/>
+                    <Button Classes="KeyBtn" Grid.Column="7" DataContext="{Binding Keys[Cntr]}"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <!-- СРЕДНЯЯ ЧАСТЬ -->
+        <Border Grid.Column="1" Background="Transparent" Padding="0,0">
+            <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="*, *, *">
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="0" DataContext="{Binding Keys[INS]}"/>
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="1" DataContext="{Binding Keys[HOME]}"/>
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="2" DataContext="{Binding Keys[PGUP]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="0" DataContext="{Binding Keys[DEL]}"/>
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="1" DataContext="{Binding Keys[END]}"/>
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="2" DataContext="{Binding Keys[PGDN]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="4" Grid.Column="1" DataContext="{Binding Keys[UP]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="5" Grid.Column="0" DataContext="{Binding Keys[LEFT]}"/>
+                <Button Classes="KeyBtn" Grid.Row="5" Grid.Column="1" DataContext="{Binding Keys[DOWN]}"/>
+                <Button Classes="KeyBtn" Grid.Row="5" Grid.Column="2" DataContext="{Binding Keys[RIGHT]}"/>
+            </Grid>
+        </Border>
+
+        <!-- ПРАВАЯ ЧАСТЬ -->
+        <Border Grid.Column="2" Background="Transparent">
+            <Grid RowDefinitions="*, *, *, *, *, *" ColumnDefinitions="*, *, *, *">
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="0" DataContext="{Binding Keys[NumLock]}"/>
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="1" DataContext="{Binding Keys[NumDiv]}"/>
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="2" DataContext="{Binding Keys[NumMult]}"/>
+                <Button Classes="KeyBtn" Grid.Row="1" Grid.Column="3" DataContext="{Binding Keys[NumMinus]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="0" DataContext="{Binding Keys[Num7]}"/>
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="1" DataContext="{Binding Keys[Num8]}"/>
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="2" DataContext="{Binding Keys[Num9]}"/>
+                <Button Classes="KeyBtn" Grid.Row="2" Grid.Column="3" Grid.RowSpan="2" DataContext="{Binding Keys[NumPlus]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="3" Grid.Column="0" DataContext="{Binding Keys[Num4]}"/>
+                <Button Classes="KeyBtn" Grid.Row="3" Grid.Column="1" DataContext="{Binding Keys[Num5]}"/>
+                <Button Classes="KeyBtn" Grid.Row="3" Grid.Column="2" DataContext="{Binding Keys[Num6]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="4" Grid.Column="0" DataContext="{Binding Keys[Num1]}"/>
+                <Button Classes="KeyBtn" Grid.Row="4" Grid.Column="1" DataContext="{Binding Keys[Num2]}"/>
+                <Button Classes="KeyBtn" Grid.Row="4" Grid.Column="2" DataContext="{Binding Keys[Num3]}"/>
+                <Button Classes="KeyBtn" Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" DataContext="{Binding Keys[NumEnter]}"/>
+                
+                <Button Classes="KeyBtn" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding Keys[Num0]}"/>
+                <Button Classes="KeyBtn" Grid.Row="5" Grid.Column="2" DataContext="{Binding Keys[NumDot]}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

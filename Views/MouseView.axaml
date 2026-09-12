@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SourceConfigMaker.ViewModels"
+             x:Class="SourceConfigMaker.Views.MouseView"
+             x:DataType="vm:KeyboardViewModel">
+
+    <UserControl.Styles>
+        <!-- Тот же самый стиль, что и у клавиатуры, но назовем его MouseBtn -->
+        <Style Selector="Button.MouseBtn" x:DataType="vm:KeyViewModel">
+            <Setter Property="Background" Value="{Binding ButtonColor}" />
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Content" Value="{Binding}" />
+            
+            <Setter x:CompileBindings="False" Property="Command" Value="{Binding $parent[UserControl].DataContext.EditBindCommand}" />
+            <Setter Property="CommandParameter" Value="{Binding KeyName}" />
+            
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate x:DataType="vm:KeyViewModel">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding DisplayName}"/>
+                            <TextBlock FontSize="10" Foreground="{Binding CommandForeground}" HorizontalAlignment="Center" Text="{Binding DisplayCommand}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+
+    <!-- Твоя сетка для формы мыши -->
+    <Grid RowDefinitions="0.2*, 2*, 2*, 2*, 2*, 0.2*" ColumnDefinitions="0.2*, *, *, *, *, 0.2*" Margin="10">
+        
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MOUSE1]}" Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" CornerRadius="25, 0, 0, 100" />
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MOUSE2]}" Grid.Row="1" Grid.Column="4" Grid.RowSpan="4" CornerRadius="0, 25, 100, 0" />
+        
+        <!-- Колесико -->
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MWHEELUP]}" Grid.Row="1" Grid.Column="3" />
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MOUSE3]}" Grid.Row="2" Grid.Column="3" />
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MWHEELDOWN]}" Grid.Row="3" Grid.Column="3" />
+        
+        <!-- Боковые кнопки -->
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MOUSE5]}" Grid.Row="2" Grid.Column="1" CornerRadius="20, 0, 0, 0" />
+        <Button Classes="MouseBtn" DataContext="{Binding Keys[MOUSE4]}" Grid.Row="3" Grid.Column="1" CornerRadius="0, 0, 0, 20" />
+        
+    </Grid>
+</UserControl>
