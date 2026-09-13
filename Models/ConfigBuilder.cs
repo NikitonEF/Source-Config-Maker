@@ -23,7 +23,7 @@ public static class ConfigBuilder
         SettingsViewModel settings,
         bool hasUnbindAll,
         bool isCrosshairEnabled,
-        string originalFilePath = null)
+        string? originalFilePath = null)
     {
         var newLines = new List<string>();
         var handledBinds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -47,7 +47,7 @@ public static class ConfigBuilder
         }
         else
         {
-            await MergeConfigAsync(originalFilePath, newLines, currentBinds, allSettings, hasUnbindAll, isCrosshairEnabled, handledBinds, handledGenerals);
+            await MergeConfigAsync(originalFilePath!, newLines, currentBinds, allSettings, hasUnbindAll, isCrosshairEnabled, handledBinds, handledGenerals);
         }
 
         AppendAliases(newLines, settings.PresetsVm);
@@ -132,7 +132,7 @@ public static class ConfigBuilder
             if (bindMatch.Success)
             {
                 string key = bindMatch.Groups[1].Value.ToUpper();
-                if (currentBinds.TryGetValue(key, out string newValue))
+                if (currentBinds.TryGetValue(key, out string? newValue))
                 {
                     if (newValue.Equals("UNBIND", StringComparison.OrdinalIgnoreCase))
                         newLines.Add($"unbind \"{key}\"");
@@ -147,7 +147,7 @@ public static class ConfigBuilder
             if (unbindMatch.Success)
             {
                 string key = unbindMatch.Groups[1].Value.ToUpper();
-                if (currentBinds.TryGetValue(key, out string newValue))
+                if (currentBinds.TryGetValue(key, out string? newValue))
                 {
                     if (newValue.Equals("UNBIND", StringComparison.OrdinalIgnoreCase))
                         newLines.Add($"unbind \"{key}\"");
@@ -163,7 +163,7 @@ public static class ConfigBuilder
             {
                 string key = cvarMatch.Groups[1].Value;
 
-                if (allSettings.TryGetValue(key, out string newValue))
+                if (allSettings.TryGetValue(key, out string? newValue))
                 {
                     if (!isCrosshairEnabled && key.StartsWith("cl_cross", StringComparison.OrdinalIgnoreCase))
                     {

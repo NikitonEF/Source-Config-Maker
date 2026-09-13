@@ -89,16 +89,14 @@ public partial class KeyboardViewModel : ObservableObject
         AddKey("MOUSE4", "MOUSE4", "M4");
         AddKey("MOUSE5", "MOUSE5", "M5");
     }
-
     private void AddKey(string safeName, string engineName, string dispName)
     {
         _engineToSafeMap[engineName] = safeName;
         string defCmd = _database.DefaultBindings.TryGetValue(engineName.ToUpper(), out var cmd) ? cmd : "";
-        Keys[safeName] = new KeyViewModel(engineName, dispName, defCmd);
-    }
 
-    [RelayCommand]
-    private void EditBind(string keyName) => _openEditorAction?.Invoke(keyName);
+        // Передаем _openEditorAction внутрь каждой кнопки
+        Keys[safeName] = new KeyViewModel(engineName, dispName, defCmd, _openEditorAction);
+    }
 
     public void ApplyParsedBinds(Dictionary<string, string> parsedBinds)
     {

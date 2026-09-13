@@ -14,7 +14,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="DragDrop.AllowDrop" Value="True"/>
             <Setter Property="Content" Value="{Binding}" />
-            <Setter x:CompileBindings="False" Property="Command" Value="{Binding $parent[UserControl].DataContext.EditBindCommand}" />
+            <Setter Property="Command" Value="{Binding EditBindCommand}" />
             <Setter Property="CommandParameter" Value="{Binding KeyName}" />
             <Setter Property="ContentTemplate">
                 <Setter.Value>

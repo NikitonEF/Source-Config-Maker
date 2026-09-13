@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Avalonia.Controls; // Нужен для TryFindResource
+using Avalonia.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using SourceConfigMaker.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Avalonia.Media;
-using CommunityToolkit.Mvvm.ComponentModel;
-using SourceConfigMaker.Models;
 
 namespace SourceConfigMaker.ViewModels;
 
@@ -12,12 +14,24 @@ public partial class CvarItem : ObservableObject
 {
     public string Name { get; }
 
-    [ObservableProperty]
-    private string _value = string.Empty;
+    // Добавляем хранение дефолтного значения
+    public string DefaultValue { get; }
 
-    public CvarItem(string name)
+    [ObservableProperty]
+    private string _value;
+
+    public CvarItem(string name, string defaultValue)
     {
         Name = name;
+        DefaultValue = defaultValue;
+        _value = defaultValue;
+    }
+
+    // Эта команда сгенерируется триммером и будет вызвана из UI
+    [RelayCommand]
+    public void Reset()
+    {
+        Value = DefaultValue;
     }
 }
 
@@ -34,14 +48,29 @@ public partial class CommandChipItem : ObservableObject
     }
 }
 
-public class CommandCategory
+// Теперь категория работает через ресурсные ключи
+public partial class CommandCategory : ObservableObject
 {
-    public string Name { get; }
+    public string ResourceKey { get; }
+
+    [ObservableProperty]
+    private string _name = string.Empty;
+
     public ObservableCollection<CommandChipItem> Commands { get; } = new();
 
-    public CommandCategory(string name)
+    public CommandCategory(string resourceKey)
     {
-        Name = name;
+        ResourceKey = resourceKey;
+        UpdateName();
+    }
+
+    public void UpdateName()
+    {
+        if (Avalonia.Application.Current != null &&
+            Avalonia.Application.Current.TryFindResource(ResourceKey, out var value))
+        {
+            Name = value?.ToString() ?? ResourceKey;
+        }
     }
 }
 
@@ -80,7 +109,7 @@ public partial class CrosshairPreviewViewModel : ObservableObject
     {
         if (!isEnabled)
         {
-            CrossBrush = Brushes.Transparent; // Скрываем прицел, если тумблер выключен
+            CrossBrush = Brushes.Transparent;
             return;
         }
 
@@ -186,7 +215,14 @@ public partial class SettingsViewModel : ViewModelBase
         InitializeChecklist();
     }
 
-    // НОВОЕ: Привязка тумблера к превью
+    public void UpdateLanguage()
+    {
+        foreach (var category in ChecklistCategories)
+        {
+            category.UpdateName();
+        }
+    }
+
     partial void OnIsCrosshairEnabledChanged(bool value)
     {
         RecalculateCrosshairPreview();
@@ -215,11 +251,11 @@ public partial class SettingsViewModel : ViewModelBase
 
     private void InitializeChecklist()
     {
-        var movement = new CommandCategory("Движение");
+        var movement = new CommandCategory("Lang_Cat_Movement");
         string[] moveCmds = { "+forward", "+back", "+moveleft", "+moveright", "+jump", "+duck", "+speed", "+strafe", "+mlook", "+klook", "+lookup", "+lookdown" };
         foreach (var cmd in moveCmds) movement.Commands.Add(new CommandChipItem(cmd));
 
-        var weapons = new CommandCategory("Оружие");
+        var weapons = new CommandCategory("Lang_Cat_Weapons");
         string[] wpnCmds = {
             "slot1", "slot2", "slot3", "slot4", "slot5", "invnext", "invprev", "lastinv", "drop",
             "weapon_crowbar", "weapon_9mmhandgun", "weapon_357", "weapon_9mmAR", "weapon_shotgun",
@@ -228,15 +264,15 @@ public partial class SettingsViewModel : ViewModelBase
         };
         foreach (var cmd in wpnCmds) weapons.Commands.Add(new CommandChipItem(cmd));
 
-        var combat = new CommandCategory("Бой");
+        var combat = new CommandCategory("Lang_Cat_Combat");
         string[] combatCmds = { "+attack", "+attack2", "+reload", "+use", "impulse 100", "impulse 201" };
         foreach (var cmd in combatCmds) combat.Commands.Add(new CommandChipItem(cmd));
 
-        var uiComm = new CommandCategory("Интерфейс");
+        var uiComm = new CommandCategory("Lang_Cat_Interface");
         string[] uiCmds = { "+showscores", "toggleconsole", "cancelselect", "pause", "snapshot", "save quick", "load quick", "quit prompt" };
         foreach (var cmd in uiCmds) uiComm.Commands.Add(new CommandChipItem(cmd));
 
-        var voice = new CommandCategory("Связь");
+        var voice = new CommandCategory("Lang_Cat_Voice");
         string[] voiceCmds = { "messagemode", "messagemode2", "+voicerecord" };
         foreach (var cmd in voiceCmds) voice.Commands.Add(new CommandChipItem(cmd));
 
@@ -251,7 +287,12 @@ public partial class SettingsViewModel : ViewModelBase
     {
         if (_db.Categories.TryGetValue(categoryName, out var cvars))
         {
-            foreach (var cvar in cvars) collection.Add(new CvarItem(cvar));
+            foreach (var cvar in cvars)
+            {
+                // Достаем дефолтное значение из нашей обновленной базы
+                string defVal = _db.DefaultValues.TryGetValue(cvar, out var val) ? val : string.Empty;
+                collection.Add(new CvarItem(cvar, defVal));
+            }
         }
     }
 
@@ -297,6 +338,21 @@ public partial class SettingsViewModel : ViewModelBase
         foreach (var cvar in allCvars)
         {
             cvar.Value = string.Empty;
+        }
+    }
+    [RelayCommand]
+    private void ResetAllCvars()
+    {
+        // Собираем все коллекции кваров, которые у тебя есть во вкладках
+        var allSettings = MainSettings
+            .Concat(NetSettings)
+            .Concat(SoundSettings)
+            .Concat(VideoSettings)
+            .Concat(CrosshairSettings);
+
+        foreach (var cvar in allSettings)
+        {
+            cvar.Reset(); // Вызываем метод сброса из CvarItem
         }
     }
 }

@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Top Menu -->
+    <x:String x:Key="Lang_OpenConfig">CONFIG ÖFFNEN</x:String>
+    <x:String x:Key="Lang_NewConfig">NEUE CONFIG</x:String>
+    <x:String x:Key="Lang_SaveBackup">Mit Backup speichern</x:String>
+    <x:String x:Key="Lang_UnbindAll">UNBINDALL</x:String>
+
+    <!-- Tabs -->
+    <x:String x:Key="Lang_Tab_Binds">BELEGUNGEN</x:String>
+    <x:String x:Key="Lang_Tab_Aliases">ALIASE</x:String>
+    <x:String x:Key="Lang_Tab_Raw">RAW</x:String>
+    <x:String x:Key="Lang_Tab_Main">ALLGEMEIN</x:String>
+    <x:String x:Key="Lang_Tab_Net">NETZWERK</x:String>
+    <x:String x:Key="Lang_Tab_Sound">TON</x:String>
+    <x:String x:Key="Lang_Tab_Video">GRAFIK</x:String>
+    <x:String x:Key="Lang_Tab_Crosshair">FADENKREUZ</x:String>
+
+    <!-- Bind Editor Overlay -->
+    <x:String x:Key="Lang_EditBindTitle">Belegung ändern:</x:String>
+    <x:String x:Key="Lang_CommandLabel">Befehl (bind):</x:String>
+    <x:String x:Key="Lang_CommandPlaceholder">Geben Sie einen Befehl ein...</x:String>
+    <x:String x:Key="Lang_Btn_Unbind">UNBIND</x:String>
+    <x:String x:Key="Lang_Btn_Ok">ОК</x:String>
+
+    <!-- New Config Overlay -->
+    <x:String x:Key="Lang_NewConfigTitle">Neue Config erstellen</x:String>
+    <x:String x:Key="Lang_NewConfigDesc">Nicht gespeicherte Änderungen gehen verloren.</x:String>
+    <x:String x:Key="Lang_Btn_Cancel">ABBRECHEN</x:String>
+    <x:String x:Key="Lang_Btn_YesClear">JA, LEEREN</x:String>
+
+    <!-- Aliases & Presets -->
+    <x:String x:Key="Lang_Alias_Name">Name des Aliases:</x:String>
+    <x:String x:Key="Lang_Alias_BuiltIn">Fertige Aliase(Schreibgeschützt)</x:String>
+    <x:String x:Key="Lang_Alias_Save">💾 Änderungen speichern</x:String>
+
+    <!-- Context Menus -->
+    <x:String x:Key="Lang_Menu_InsertAlias">Einfügen: alias "name" ...</x:String>
+    <x:String x:Key="Lang_Menu_InsertWait">Einfügen: wait</x:String>
+
+    <!-- PresetsView -->
+    <x:String x:Key="Lang_Preset_New">+ Neu</x:String>
+    <x:String x:Key="Lang_Preset_Delete">Löschen</x:String>
+    <x:String x:Key="Lang_Preset_IncludeTooltip">In die Config einfügen</x:String>
+    <x:String x:Key="Lang_Preset_PinTooltip">Alias speichern</x:String>
+    <x:String x:Key="Lang_Preset_BuiltInTooltip">Fertiger Alias</x:String>
+
+    <!-- Crosshair -->
+    <x:String x:Key="Lang_Crosshair_Disabled">🎯 DEAKTIVIERT</x:String>
+    <x:String x:Key="Lang_Crosshair_Hint">Um die Fadenkreuz-Einstellungen zu öffnen, klicken Sie auf das Symbol im oberen Menü.</x:String>
+    <x:String x:Key="Lang_Crosshair_Preview">VORSCHAU</x:String>
+
+    <!-- Categories -->
+    <x:String x:Key="Lang_Cat_Movement">Bewegung</x:String>
+    <x:String x:Key="Lang_Cat_Weapons">Waffen</x:String>
+    <x:String x:Key="Lang_Cat_Combat">Kampf</x:String>
+    <x:String x:Key="Lang_Cat_Interface">Interface</x:String>
+    <x:String x:Key="Lang_Cat_Voice">Netzwerk</x:String>
+</ResourceDictionary>
+

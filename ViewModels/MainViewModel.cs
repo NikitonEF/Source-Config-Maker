@@ -96,19 +96,22 @@ public partial class MainViewModel : ViewModelBase
 
         if (files.Count >= 1)
         {
-            string filePath = files[0].Path.LocalPath;
-
-            _currentFilePath = filePath; // <--- ВОТ ЭТА СТРОКА ДОБАВЛЕНА
-
-            ParsedConfig configData = ConfigParser.Parse(filePath);
-
-            HasUnbindAll = configData.HasUnbindAll;
-            KeyboardVm.SetUnbindAllState(HasUnbindAll);
-            IsCrosshairEnabled = configData.Cvars.Keys.Any(k => k.StartsWith("cl_cross", StringComparison.OrdinalIgnoreCase));
-            SettingsVm.IsCrosshairEnabled = IsCrosshairEnabled;
-
-            DistributeParsedData(configData);
+            LoadConfigFromFile(files[0].Path.LocalPath);
         }
+    }
+
+    public void LoadConfigFromFile(string filePath)
+    {
+        _currentFilePath = filePath;
+
+        ParsedConfig configData = ConfigParser.Parse(filePath);
+
+        HasUnbindAll = configData.HasUnbindAll;
+        KeyboardVm.SetUnbindAllState(HasUnbindAll);
+        IsCrosshairEnabled = configData.Cvars.Keys.Any(k => k.StartsWith("cl_cross", StringComparison.OrdinalIgnoreCase));
+        SettingsVm.IsCrosshairEnabled = IsCrosshairEnabled;
+
+        DistributeParsedData(configData);
     }
 
     [RelayCommand]
@@ -130,7 +133,7 @@ public partial class MainViewModel : ViewModelBase
         SettingsVm.IsCrosshairEnabled = false;
         RefreshBindsChecklist();
 
-        _currentFilePath = string.Empty; // <--- ВОТ ЭТА СТРОКА ДОБАВЛЕНА
+        _currentFilePath = string.Empty;
 
         IsNewConfigDialogOpen = false;
     }
@@ -265,5 +268,28 @@ public partial class MainViewModel : ViewModelBase
             .Where(k => !string.IsNullOrEmpty(k.DisplayCommand))
             .Select(k => k.DisplayCommand);
         SettingsVm.UpdateChecklist(assignedCommands);
+    }
+    [ObservableProperty]
+    private bool _isResetBindsDialogOpen;
+
+    [RelayCommand]
+    private void PromptResetBinds() => IsResetBindsDialogOpen = true;
+
+    [RelayCommand]
+    private void CancelResetBinds() => IsResetBindsDialogOpen = false;
+
+    [RelayCommand]
+    private void ConfirmResetBinds()
+    {
+        // В твоем коде ClearBinds устанавливает UserBind = string.Empty;
+        // Это автоматически откатывает клавиши на дефолтные бинды.
+        KeyboardVm.ClearBinds();
+
+        // Отключаем UnbindAll, если он был прожат, так как мы вернули дефолт
+        HasUnbindAll = false;
+        KeyboardVm.SetUnbindAllState(false);
+
+        RefreshBindsChecklist();
+        IsResetBindsDialogOpen = false;
     }
 }

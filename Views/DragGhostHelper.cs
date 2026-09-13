@@ -12,7 +12,7 @@ internal sealed class DragGhost : IDisposable
     private readonly Border _ghost;
     private readonly AdornerLayer _layer;
 
-    public DragGhost(TopLevel topLevel, string text, Point initialPosition)
+    public DragGhost(TopLevel topLevel, string text, Avalonia.Point initialPosition)
     {
         if (topLevel == null) throw new ArgumentNullException(nameof(topLevel));
 
@@ -21,7 +21,7 @@ internal sealed class DragGhost : IDisposable
 
         _ghost = new Border
         {
-            Background = new SolidColorBrush(Color.Parse("#3A7BFF")),
+            Background = new SolidColorBrush(Avalonia.Media.Color.Parse("#3A7BFF")),
             CornerRadius = new CornerRadius(6),
             Padding = new Thickness(10, 6),
             IsHitTestVisible = false,
@@ -42,7 +42,7 @@ internal sealed class DragGhost : IDisposable
         Update(initialPosition);
     }
 
-    public void Update(Point position)
+    public void Update(Avalonia.Point position)
     {
         _ghost.RenderTransform = new TranslateTransform(position.X + 14, position.Y + 14);
     }

@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Top Menu -->
+    <x:String x:Key="Lang_OpenConfig">ОТКРЫТЬ КОНФИГ</x:String>
+    <x:String x:Key="Lang_NewConfig">НОВЫЙ КОНФИГ</x:String>
+    <x:String x:Key="Lang_SaveBackup">СОХРАНИТЬ И БЭКАП</x:String>
+    <x:String x:Key="Lang_UnbindAll">UNBINDALL</x:String>
+
+    <!-- Tabs -->
+    <x:String x:Key="Lang_Tab_Binds">БИНДЫ</x:String>
+    <x:String x:Key="Lang_Tab_Aliases">АЛИАСЫ</x:String>
+    <x:String x:Key="Lang_Tab_Raw">RAW</x:String>
+    <x:String x:Key="Lang_Tab_Main">ОСНОВНОЕ</x:String>
+    <x:String x:Key="Lang_Tab_Net">СЕТЬ</x:String>
+    <x:String x:Key="Lang_Tab_Sound">ЗВУК</x:String>
+    <x:String x:Key="Lang_Tab_Video">ВИДЕО</x:String>
+    <x:String x:Key="Lang_Tab_Crosshair">ПРИЦЕЛ</x:String>
+
+    <!-- Bind Editor Overlay -->
+    <x:String x:Key="Lang_EditBindTitle">ИЗМЕНИТЬ БИНД:</x:String>
+    <x:String x:Key="Lang_CommandLabel">Команда (бинд):</x:String>
+    <x:String x:Key="Lang_CommandPlaceholder">Начните вводить команду...</x:String>
+    <x:String x:Key="Lang_Btn_Unbind">UNBIND</x:String>
+    <x:String x:Key="Lang_Btn_Ok">ОК</x:String>
+
+    <!-- New Config Overlay -->
+    <x:String x:Key="Lang_NewConfigTitle">Создать новый конфиг?</x:String>
+    <x:String x:Key="Lang_NewConfigDesc">Все несохраненные изменения будут потеряны.</x:String>
+    <x:String x:Key="Lang_Btn_Cancel">ОТМЕНА</x:String>
+    <x:String x:Key="Lang_Btn_YesClear">ДА, ОЧИСТИТЬ</x:String>
+
+    <!-- Aliases & Presets -->
+    <x:String x:Key="Lang_Alias_Name">Имя алиаса:</x:String>
+    <x:String x:Key="Lang_Alias_BuiltIn">Встроенный алиас (Только для чтения)</x:String>
+    <x:String x:Key="Lang_Alias_Save">💾 Сохранить изменения</x:String>
+
+    <!-- Context Menus -->
+    <x:String x:Key="Lang_Menu_InsertAlias">Вставить: alias "name" ...</x:String>
+    <x:String x:Key="Lang_Menu_InsertWait">Вставить: wait</x:String>
+
+    <!-- PresetsView -->
+    <x:String x:Key="Lang_Preset_New">+ Новый</x:String>
+    <x:String x:Key="Lang_Preset_Delete">Удалить</x:String>
+    <x:String x:Key="Lang_Preset_IncludeTooltip">Включить в итоговый конфиг</x:String>
+    <x:String x:Key="Lang_Preset_PinTooltip">Закрепить алиас (не удалится при очистке)</x:String>
+    <x:String x:Key="Lang_Preset_BuiltInTooltip">Встроенный пресет</x:String>
+
+    <!-- Crosshair -->
+    <x:String x:Key="Lang_Crosshair_Disabled">🎯 ПРИЦЕЛ ОТКЛЮЧЕН</x:String>
+    <x:String x:Key="Lang_Crosshair_Hint">Нажмите кнопку прицела в верхнем меню, чтобы включить его настройки.</x:String>
+    <x:String x:Key="Lang_Crosshair_Preview">ПРЕВЬЮ</x:String>
+
+    <!-- Categories -->
+    <x:String x:Key="Lang_Cat_Movement">Движение</x:String>
+    <x:String x:Key="Lang_Cat_Weapons">Оружие</x:String>
+    <x:String x:Key="Lang_Cat_Combat">Бой</x:String>
+    <x:String x:Key="Lang_Cat_Interface">Интерфейс</x:String>
+    <x:String x:Key="Lang_Cat_Voice">Связь</x:String>
+</ResourceDictionary>

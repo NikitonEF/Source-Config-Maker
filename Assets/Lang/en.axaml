@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Top Menu -->
+    <x:String x:Key="Lang_OpenConfig">OPEN CONFIG</x:String>
+    <x:String x:Key="Lang_NewConfig">NEW CONFIG</x:String>
+    <x:String x:Key="Lang_SaveBackup">SAVE &amp; BACKUP</x:String>
+    <x:String x:Key="Lang_UnbindAll">UNBINDALL</x:String>
+
+    <!-- Tabs -->
+    <x:String x:Key="Lang_Tab_Binds">BINDS</x:String>
+    <x:String x:Key="Lang_Tab_Aliases">ALIASES</x:String>
+    <x:String x:Key="Lang_Tab_Raw">RAW</x:String>
+    <x:String x:Key="Lang_Tab_Main">MAIN</x:String>
+    <x:String x:Key="Lang_Tab_Net">NETWORK</x:String>
+    <x:String x:Key="Lang_Tab_Sound">SOUND</x:String>
+    <x:String x:Key="Lang_Tab_Video">VIDEO</x:String>
+    <x:String x:Key="Lang_Tab_Crosshair">CROSSHAIR</x:String>
+
+    <!-- Bind Editor Overlay -->
+    <x:String x:Key="Lang_EditBindTitle">EDIT BIND:</x:String>
+    <x:String x:Key="Lang_CommandLabel">Command (bind):</x:String>
+    <x:String x:Key="Lang_CommandPlaceholder">Start typing a command...</x:String>
+    <x:String x:Key="Lang_Btn_Unbind">UNBIND</x:String>
+    <x:String x:Key="Lang_Btn_Ok">OK</x:String>
+
+    <!-- New Config Overlay -->
+    <x:String x:Key="Lang_NewConfigTitle">Create new config?</x:String>
+    <x:String x:Key="Lang_NewConfigDesc">All unsaved changes will be lost.</x:String>
+    <x:String x:Key="Lang_Btn_Cancel">CANCEL</x:String>
+    <x:String x:Key="Lang_Btn_YesClear">YES, CLEAR</x:String>
+
+    <!-- Aliases & Presets -->
+    <x:String x:Key="Lang_Alias_Name">Alias name:</x:String>
+    <x:String x:Key="Lang_Alias_BuiltIn">Built-in alias (Read-only)</x:String>
+    <x:String x:Key="Lang_Alias_Save">💾 Save changes</x:String>
+
+    <!-- Context Menus -->
+    <x:String x:Key="Lang_Menu_InsertAlias">Insert: alias "name" ...</x:String>
+    <x:String x:Key="Lang_Menu_InsertWait">Insert: wait</x:String>
+
+    <!-- PresetsView -->
+    <x:String x:Key="Lang_Preset_New">+ New</x:String>
+    <x:String x:Key="Lang_Preset_Delete">Delete</x:String>
+    <x:String x:Key="Lang_Preset_IncludeTooltip">Include in final config</x:String>
+    <x:String x:Key="Lang_Preset_PinTooltip">Pin alias (won't be deleted on clear)</x:String>
+    <x:String x:Key="Lang_Preset_BuiltInTooltip">Built-in preset</x:String>
+
+    <!-- Crosshair -->
+    <x:String x:Key="Lang_Crosshair_Disabled">🎯 CROSSHAIR DISABLED</x:String>
+    <x:String x:Key="Lang_Crosshair_Hint">Click the crosshair button in the top menu to enable its settings.</x:String>
+    <x:String x:Key="Lang_Crosshair_Preview">PREVIEW</x:String>
+
+    <!-- Categories -->
+    <x:String x:Key="Lang_Cat_Movement">Movement</x:String>
+    <x:String x:Key="Lang_Cat_Weapons">Weapons</x:String>
+    <x:String x:Key="Lang_Cat_Combat">Combat</x:String>
+    <x:String x:Key="Lang_Cat_Interface">Interface</x:String>
+    <x:String x:Key="Lang_Cat_Voice">Communication</x:String>
+</ResourceDictionary>

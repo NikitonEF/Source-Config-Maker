@@ -3,11 +3,19 @@
              x:Class="SourceConfigMaker.App"
              xmlns:local="using:SourceConfigMaker"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator />
     </Application.DataTemplates>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Английский грузится на старте -->
+                <ResourceInclude Source="avares://SourceConfigMaker/Assets/Lang/en.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />

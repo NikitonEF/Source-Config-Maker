@@ -10,7 +10,7 @@ namespace SourceConfigMaker.Views;
 
 public partial class SettingsView : UserControl
 {
-    private Point _dragStartPoint;
+    private Avalonia.Point _dragStartPoint;
     private CommandChipItem? _dragSourceChip;
     private IPointer? _capturedPointer;
     private bool _isDragging;

@@ -10,7 +10,7 @@ namespace SourceConfigMaker.Views;
 
 public partial class MouseView : UserControl
 {
-    private Point _dragStartPoint;
+    private Avalonia.Point _dragStartPoint;
     private KeyViewModel? _dragSourceKey;
     private IPointer? _capturedPointer;
     private bool _isDragging;
@@ -29,7 +29,26 @@ public partial class MouseView : UserControl
     {
         var point = e.GetCurrentPoint(this);
 
-        if (point.Properties.IsLeftButtonPressed && e.Source is Control control && control.DataContext is KeyViewModel keyVm)
+        if (e.Source is not Control control || control.DataContext is not KeyViewModel keyVm)
+            return;
+
+        // ПКМ: мгновенный сброс кастомного бинда обратно к дефолтному (Issue #30 Fix)
+        if (point.Properties.IsRightButtonPressed)
+        {
+            if (!string.IsNullOrWhiteSpace(keyVm.UserBind))
+            {
+                keyVm.UserBind = string.Empty;
+                var window = this.FindAncestorOfType<Window>();
+                if (window?.DataContext is MainViewModel mainVm)
+                {
+                    mainVm.RefreshBindsChecklist();
+                }
+            }
+            e.Handled = true;
+            return;
+        }
+
+        if (point.Properties.IsLeftButtonPressed)
         {
             if (!string.IsNullOrWhiteSpace(keyVm.UserBind) && keyVm.UserBind != "UNBIND")
             {

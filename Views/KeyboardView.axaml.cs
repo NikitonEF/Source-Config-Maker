@@ -10,7 +10,7 @@ namespace SourceConfigMaker.Views;
 
 public partial class KeyboardView : UserControl
 {
-    private Point _dragStartPoint;
+    private Avalonia.Point _dragStartPoint;
     private KeyViewModel? _dragSourceKey;
     private IPointer? _capturedPointer;
     private bool _isDragging;
