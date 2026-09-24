@@ -20,5 +20,45 @@
     <Application.Styles>
         <FluentTheme />
         <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml"/>
+        
+        <!-- Универсальный стиль для кнопок с кастомным фоном -->
+        <Style Selector="Button.DynamicColorBtn">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid>
+                        <!-- Основной фон берется из биндинга -->
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="{TemplateBinding CornerRadius}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"/>
+                        
+                        <!-- Слой осветления (по умолчанию прозрачный) -->
+                        <Border Name="HoverOverlay" Background="White" Opacity="0" CornerRadius="{TemplateBinding CornerRadius}" />
+                        
+                        <!-- Содержимое кнопки -->
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          Padding="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        
+        <!-- Триггеры наведения и нажатия -->
+        <Style Selector="Button.DynamicColorBtn:pointerover /template/ Border#HoverOverlay">
+            <Setter Property="Opacity" Value="0.15" />
+        </Style>
+        <Style Selector="Button.DynamicColorBtn:pressed /template/ Border#HoverOverlay">
+            <Setter Property="Opacity" Value="0.30" />
+        </Style>
+
+        <Style Selector="Button.DynamicColorBtn:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.DynamicColorBtn:pressed /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
     </Application.Styles>
 </Application>

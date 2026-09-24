@@ -10,7 +10,7 @@
                  Background="Transparent" CornerRadius="4">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="models:PresetItem">
-                    <Grid ColumnDefinitions="Auto, *, Auto, Auto" Margin="0,3">
+                    <Grid ColumnDefinitions="Auto, *, Auto, Auto" Margin="0,3" Background="Transparent" PointerPressed="Preset_PointerPressed">
                         <CheckBox Grid.Column="0" IsChecked="{Binding IsIncluded}" Margin="0,0,10,0" VerticalAlignment="Center" ToolTip.Tip="{DynamicResource Lang_Preset_IncludeTooltip}"/>
                         <TextBlock Grid.Column="1" Text="{Binding Name}" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" VerticalAlignment="Center"/>
                         

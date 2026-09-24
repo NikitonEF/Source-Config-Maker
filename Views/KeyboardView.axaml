@@ -16,16 +16,41 @@
             <Setter Property="Content" Value="{Binding}" />
             <Setter Property="Command" Value="{Binding EditBindCommand}" />
             <Setter Property="CommandParameter" Value="{Binding KeyName}" />
+            
+            <!-- Переопределяем шаблон, чтобы не терять ButtonColor -->
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" />
+                        <Border Name="HoverOverlay" Background="White" Opacity="0" CornerRadius="{TemplateBinding CornerRadius}" />
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter>
+
             <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate x:DataType="vm:KeyViewModel">
                         <StackPanel VerticalAlignment="Center" Spacing="2">
-                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Text="{Binding DisplayName}"/>
+                            <!-- Добавил привязку к TextControlForeground, чтобы имя клавиши тоже правильно реагировало на тему -->
+                            <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Foreground="{DynamicResource TextControlForeground}" Text="{Binding DisplayName}"/>
                             <TextBlock FontSize="10" Foreground="{Binding CommandForeground}" HorizontalAlignment="Center" Text="{Binding DisplayCommand}"/>
                         </StackPanel>
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <!-- Анимации осветления для клавиш -->
+        <Style Selector="Button.KeyBtn:pointerover /template/ Border#HoverOverlay">
+            <Setter Property="Opacity" Value="0.20" />
+        </Style>
+        <Style Selector="Button.KeyBtn:pressed /template/ Border#HoverOverlay">
+            <Setter Property="Opacity" Value="0.40" />
         </Style>
     </UserControl.Styles>
 

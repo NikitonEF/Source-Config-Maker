@@ -22,6 +22,8 @@
     <x:String x:Key="Lang_CommandPlaceholder">Start typing a command...</x:String>
     <x:String x:Key="Lang_Btn_Unbind">UNBIND</x:String>
     <x:String x:Key="Lang_Btn_Ok">OK</x:String>
+    <x:String x:Key="Lang_DefaultBindPrefix">(Default:</x:String>
+    <x:String x:Key="Lang_DefaultBindSuffix">)</x:String>
 
     <!-- New Config Overlay -->
     <x:String x:Key="Lang_NewConfigTitle">Create new config?</x:String>
@@ -56,4 +58,62 @@
     <x:String x:Key="Lang_Cat_Combat">Combat</x:String>
     <x:String x:Key="Lang_Cat_Interface">Interface</x:String>
     <x:String x:Key="Lang_Cat_Voice">Communication</x:String>
+
+    <!-- Settings Tooltips: MAIN -->
+    <x:String x:Key="Lang_Tip_name">Your in-game player name.</x:String>
+    <x:String x:Key="Lang_Tip_default_fov">Field of view (default is 90).</x:String>
+    <x:String x:Key="Lang_Tip_fps_max">Maximum framerate limit.</x:String>
+    <x:String x:Key="Lang_Tip_fps_override">Allow framerate to exceed 100 FPS.</x:String>
+    <x:String x:Key="Lang_Tip_cl_bob">Amount of view bobbing when running.</x:String>
+    <x:String x:Key="Lang_Tip_cl_hidecorpses">Hide dead bodies to improve performance.</x:String>
+    <x:String x:Key="Lang_Tip_m_rawinput">Use raw mouse input (bypasses Windows settings).</x:String>
+    <x:String x:Key="Lang_Tip_m_filter">Enable mouse smoothing.</x:String>
+    <x:String x:Key="Lang_Tip_zoom_sensitivity_ratio">Mouse sensitivity multiplier when scoped.</x:String>
+    <x:String x:Key="Lang_Tip_cl_autojump">Enable automatic jumping when holding space.</x:String>
+    <x:String x:Key="Lang_Tip_cl_autorecord">Automatically record a demo for every match.</x:String>
+
+    <!-- Settings Tooltips: NETWORK -->
+    <x:String x:Key="Lang_Tip_rate">Maximum bytes per second the host can receive data.</x:String>
+    <x:String x:Key="Lang_Tip_cl_updaterate">Number of packets per second received from the server.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cmdrate">Number of command packets sent to the server per second.</x:String>
+    <x:String x:Key="Lang_Tip_ex_interp">Amount of entity interpolation (0.01 for competitive).</x:String>
+    <x:String x:Key="Lang_Tip_cl_dlmax">Maximum download rate for server resources.</x:String>
+    <x:String x:Key="Lang_Tip_cl_lc">Enable lag compensation.</x:String>
+    <x:String x:Key="Lang_Tip_cl_lw">Enable client-side weapon effects prediction.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cmdbackup">Number of backup commands sent to prevent packet loss.</x:String>
+    <x:String x:Key="Lang_Tip_cl_timeout">Time (in seconds) before dropping a disconnected server.</x:String>
+    <x:String x:Key="Lang_Tip_cl_resend">Delay before retrying a connection to a server.</x:String>
+    <x:String x:Key="Lang_Tip_cl_latency">Simulated latency for testing purposes.</x:String>
+
+    <!-- Settings Tooltips: SOUND -->
+    <x:String x:Key="Lang_Tip_volume">Master game volume (0.0 to 1.0).</x:String>
+    <x:String x:Key="Lang_Tip_hisound">Enable high-quality audio (22kHz).</x:String>
+    <x:String x:Key="Lang_Tip_bgmvolume">CD audio background music volume.</x:String>
+    <x:String x:Key="Lang_Tip_MP3Volume">MP3 background music volume.</x:String>
+    <x:String x:Key="Lang_Tip_suitvolume">HEV suit voice volume.</x:String>
+    <x:String x:Key="Lang_Tip_voice_enable">Enable in-game voice chat.</x:String>
+    <x:String x:Key="Lang_Tip_voice_scale">Voice chat receive volume.</x:String>
+    <x:String x:Key="Lang_Tip_ambient_level">Volume level of ambient map sounds.</x:String>
+    <x:String x:Key="Lang_Tip_room_off">Disable spatial sound echo/reverb effects.</x:String>
+    <x:String x:Key="Lang_Tip_s_a3d">Enable A3D hardware audio processing.</x:String>
+    <x:String x:Key="Lang_Tip_s_eax">Enable EAX hardware audio processing.</x:String>
+
+    <!-- Settings Tooltips: VIDEO -->
+    <x:String x:Key="Lang_Tip_gamma">Screen gamma (lightness/darkness).</x:String>
+    <x:String x:Key="Lang_Tip_brightness">Screen brightness level.</x:String>
+    <x:String x:Key="Lang_Tip_r_drawviewmodel">Draw the first-person weapon model on screen.</x:String>
+    <x:String x:Key="Lang_Tip_gl_vsync">Enable vertical synchronization to prevent screen tearing.</x:String>
+    <x:String x:Key="Lang_Tip_cl_forceenemymodels">Force all enemies to use a specific player model.</x:String>
+    <x:String x:Key="Lang_Tip_cl_forceteammatemodels">Force all teammates to use a specific player model.</x:String>
+    <x:String x:Key="Lang_Tip_hud_fastswitch">Enable fast weapon switching without confirmation.</x:String>
+    <x:String x:Key="Lang_Tip_net_graph">Show network usage data (0 = Off, 1-3 = Graph styles).</x:String>
+
+    <!-- Settings Tooltips: CROSSHAIR -->
+    <x:String x:Key="Lang_Tip_cl_cross">Enable custom crosshair.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_size">Size of the crosshair lines.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_color">RGB color values of the crosshair (e.g. 255 255 255).</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_thickness">Thickness of the crosshair lines.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_gap">Distance between the center and the crosshair lines.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_dot_size">Size of the center dot (0 to disable).</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_alpha">Transparency of the crosshair (0-255).</x:String>
 </ResourceDictionary>

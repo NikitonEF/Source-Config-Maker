@@ -227,7 +227,7 @@ public partial class MainViewModel : ViewModelBase
         string cleanKey = keyName.ToUpper();
         if (_database.DefaultBindings.TryGetValue(cleanKey, out var defBind))
         {
-            DefaultBindHint = $"(По умолчанию: {defBind})";
+            DefaultBindHint = defBind;
             HasDefaultBind = true;
         }
         else HasDefaultBind = false;

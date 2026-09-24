@@ -12,9 +12,7 @@ public partial class KeyboardView : UserControl
 {
     private Avalonia.Point _dragStartPoint;
     private KeyViewModel? _dragSourceKey;
-    private IPointer? _capturedPointer;
-    private bool _isDragging;
-    private DragGhost? _currentGhost;
+    private PointerPressedEventArgs? _dragStartEvent; // Сохраняем ивент нажатия
 
     public KeyboardView()
     {
@@ -22,18 +20,17 @@ public partial class KeyboardView : UserControl
 
         AddHandler(InputElement.PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
         AddHandler(InputElement.PointerMovedEvent, OnPointerMoved, RoutingStrategies.Tunnel);
-        AddHandler(InputElement.PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Tunnel);
+
+        // Подписываемся на нативное системное событие Drop
+        AddHandler(DragDrop.DropEvent, OnDrop);
     }
 
     private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
     {
         var point = e.GetCurrentPoint(this);
+        if (e.Source is not Control control || control.DataContext is not KeyViewModel keyVm) return;
 
-        if (e.Source is not Control control || control.DataContext is not KeyViewModel keyVm)
-            return;
-
-        // ПКМ: мгновенный сброс кастомного бинда обратно к дефолтному значению игры.
-        // Не открываем редактор, не начинаем drag.
+        // ПКМ: мгновенный сброс клавиши к дефолту
         if (point.Properties.IsRightButtonPressed)
         {
             if (!string.IsNullOrWhiteSpace(keyVm.UserBind))
@@ -45,89 +42,91 @@ public partial class KeyboardView : UserControl
             return;
         }
 
-        if (point.Properties.IsLeftButtonPressed)
+        // ЛКМ: подготавливаемся к переносу клавиши (свапу биндов)
+        if (point.Properties.IsLeftButtonPressed && !string.IsNullOrWhiteSpace(keyVm.UserBind) && keyVm.UserBind != "UNBIND")
         {
-            if (!string.IsNullOrWhiteSpace(keyVm.UserBind) && keyVm.UserBind != "UNBIND")
-            {
-                _dragStartPoint = point.Position;
-                _dragSourceKey = keyVm;
-                _isDragging = false;
-            }
+            _dragStartPoint = point.Position;
+            _dragSourceKey = keyVm;
+            _dragStartEvent = e; // Сохраняем событие для DoDragDropAsync
         }
     }
 
-    private void OnPointerMoved(object? sender, PointerEventArgs e)
+    private async void OnPointerMoved(object? sender, PointerEventArgs e)
     {
         if (_dragSourceKey == null) return;
 
         var point = e.GetCurrentPoint(this);
-
         if (!point.Properties.IsLeftButtonPressed)
         {
-            if (!_isDragging)
-                _dragSourceKey = null;
+            _dragSourceKey = null;
             return;
         }
 
-        var topLevel = TopLevel.GetTopLevel(this);
-        if (topLevel == null) return;
-
-        if (!_isDragging)
+        var diff = point.Position - _dragStartPoint;
+        if (System.Math.Abs(diff.X) > 3 || System.Math.Abs(diff.Y) > 3)
         {
-            var diff = point.Position - _dragStartPoint;
-            if (Math.Abs(diff.X) <= 3 && Math.Abs(diff.Y) <= 3)
-                return;
+            var sourceKey = _dragSourceKey;
+            DragSession.Key = sourceKey;
+            DragSession.Command = null;
+            _dragSourceKey = null;
 
-            _isDragging = true;
-            _capturedPointer = e.Pointer;
-            e.Pointer.Capture(this);
+            var topLevel = TopLevel.GetTopLevel(this);
+            if (topLevel == null) return;
 
-            _currentGhost = new DragGhost(topLevel, _dragSourceKey.UserBind, e.GetPosition(topLevel));
-            e.Handled = true;
-            return;
+            var ghost = new DragGhost(topLevel, sourceKey.UserBind, e.GetPosition(topLevel));
+
+            System.EventHandler<DragEventArgs> dragOverHandler = (_, args) => ghost.Update(args.GetPosition(topLevel));
+            topLevel.AddHandler(DragDrop.DragOverEvent, dragOverHandler, RoutingStrategies.Tunnel | RoutingStrategies.Bubble, handledEventsToo: true);
+
+            var dragData = new DataTransfer();
+            if (_dragStartEvent != null)
+            {
+                await DragDrop.DoDragDropAsync(_dragStartEvent, dragData, DragDropEffects.Move);
+                e.Handled = true;
+            }
+
+            topLevel.RemoveHandler(DragDrop.DragOverEvent, dragOverHandler);
+            ghost.Dispose();
         }
-
-        _currentGhost?.Update(e.GetPosition(topLevel));
-        e.Handled = true;
     }
 
-    private void OnPointerReleased(object? sender, PointerEventArgs e)
+    private void OnDrop(object? sender, DragEventArgs e)
     {
-        _currentGhost?.Dispose();
-        _currentGhost = null;
+        // Ищем, на какую клавишу бросили элемент
+        var targetKey = FindKeyViewModel(e.Source as IInputElement);
 
-        if (_isDragging && _dragSourceKey != null)
+        // Сценарий 1: Притащили новую команду из панели настроек
+        if (DragSession.Command != null && targetKey != null)
         {
-            var topLevel = TopLevel.GetTopLevel(this);
-            if (topLevel != null)
+            targetKey.UserBind = DragSession.Command;
+            RefreshChecklist();
+            e.Handled = true;
+        }
+        // Сценарий 2: Перетаскивают уже назначенную клавишу (Свап биндов)
+        else if (DragSession.Key != null)
+        {
+            var sourceKey = DragSession.Key;
+
+            if (targetKey != null && targetKey != sourceKey)
             {
-                var pointOnTopLevel = e.GetPosition(topLevel);
-                var hit = topLevel.InputHitTest(pointOnTopLevel);
-                var targetKey = FindKeyViewModel(hit);
-
-                if (targetKey != null && targetKey != _dragSourceKey)
-                {
-                    // Отпустили на другой клавише - меняем бинды местами, как раньше
-                    var temp = targetKey.UserBind;
-                    targetKey.UserBind = _dragSourceKey.UserBind;
-                    _dragSourceKey.UserBind = temp;
-
-                    RefreshChecklist();
-                }
-                else if (targetKey == null && IsOverBindsDropZone(hit))
-                {
-                    // Отпустили над вкладкой БИНДЫ - удаляем кастомный бинд с клавиши,
-                    // она откатывается к дефолтной команде игры (та же логика, что и ПКМ)
-                    _dragSourceKey.UserBind = string.Empty;
-                    RefreshChecklist();
-                }
+                // Меняем бинды местами
+                var temp = targetKey.UserBind;
+                targetKey.UserBind = sourceKey.UserBind;
+                sourceKey.UserBind = temp;
+                RefreshChecklist();
             }
+            else if (targetKey == null && IsOverBindsDropZone(e.Source as IInputElement))
+            {
+                // Бросили клавишу мимо клавиатуры — стираем кастомный бинд
+                sourceKey.UserBind = string.Empty;
+                RefreshChecklist();
+            }
+            e.Handled = true;
         }
 
-        _capturedPointer?.Capture(null);
-        _capturedPointer = null;
-        _dragSourceKey = null;
-        _isDragging = false;
+        // Очищаем сессию после броска
+        DragSession.Command = null;
+        DragSession.Key = null;
     }
 
     private void RefreshChecklist()

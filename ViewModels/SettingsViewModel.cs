@@ -3,31 +3,99 @@ using Avalonia.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SourceConfigMaker.Models;
+using SourceConfigMaker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Globalization;
 
 namespace SourceConfigMaker.ViewModels;
 
+// 3. Полностью обновленный класс CvarItem
 public partial class CvarItem : ObservableObject
 {
     public string Name { get; }
-
-    // Добавляем хранение дефолтного значения
     public string DefaultValue { get; }
+    public string ToolTipKey { get; }
+    public float Min { get; }
+    public float Max { get; }
 
-    [ObservableProperty]
-    private string _value;
+    // Свойства для управления видимостью элементов в XAML
+    public bool IsTextControl => _controlType == CvarControlType.Text;
+    public bool IsBoolControl => _controlType == CvarControlType.Boolean;
+    public bool IsSliderControl => _controlType == CvarControlType.Slider;
 
-    public CvarItem(string name, string defaultValue)
+    private readonly CvarControlType _controlType;
+
+    private string _value = string.Empty;
+    public string Value
     {
-        Name = name;
-        DefaultValue = defaultValue;
-        _value = defaultValue;
+        get => _value;
+        set
+        {
+            if (SetProperty(ref _value, value))
+            {
+                // Уведомляем UI, что связанные значения (тумблер/слайдер) тоже изменились
+                OnPropertyChanged(nameof(BoolValue));
+                OnPropertyChanged(nameof(SliderValue));
+            }
+        }
     }
 
-    // Эта команда сгенерируется триммером и будет вызвана из UI
+    // Прокси-свойство для тумблера (1 = включено, 0 = выключено)
+    public bool BoolValue
+    {
+        get => Value == "1" || Value.Equals("true", StringComparison.OrdinalIgnoreCase);
+        set => Value = value ? "1" : "0";
+    }
+
+    // Прокси-свойство для ползунка
+    // Прокси-свойство для ползунка
+    public double SliderValue
+    {
+        get
+        {
+            // Принудительно парсим строку с точкой, игнорируя региональные настройки Windows
+            if (double.TryParse(Value?.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
+            {
+                return result;
+            }
+            return Min;
+        }
+        set
+        {
+            // Сохраняем в формат движка (с точкой), независимо от языка ОС
+            Value = value.ToString("0.##", CultureInfo.InvariantCulture);
+        }
+    }
+    // Добавляем свойство для хранения готового перевода
+    [ObservableProperty]
+    private string _toolTipText = string.Empty;
+
+    // Вызываем это при смене языка
+    public void UpdateLanguage()
+    {
+        if (Avalonia.Application.Current != null &&
+            Avalonia.Application.Current.TryFindResource(ToolTipKey, out var value))
+        {
+            ToolTipText = value?.ToString() ?? string.Empty;
+        }
+    }
+
+    // Новый конструктор принимает CvarDefinition
+    public CvarItem(CvarDefinition def)
+    {
+        Name = def.Name;
+        DefaultValue = def.DefaultValue;
+        ToolTipKey = def.ToolTipKey;
+        Min = def.Min;
+        Max = def.Max;
+        _controlType = def.Type;
+        Value = def.DefaultValue;
+        UpdateLanguage();
+    }
+
     [RelayCommand]
     public void Reset()
     {
@@ -221,6 +289,16 @@ public partial class SettingsViewModel : ViewModelBase
         {
             category.UpdateName();
         }
+
+        // НОВОЕ: Обновляем язык для всех подсказок настроек
+        var allSettings = MainSettings.Concat(NetSettings)
+                                      .Concat(SoundSettings)
+                                      .Concat(VideoSettings)
+                                      .Concat(CrosshairSettings);
+        foreach (var setting in allSettings)
+        {
+            setting.UpdateLanguage();
+        }
     }
 
     partial void OnIsCrosshairEnabledChanged(bool value)
@@ -285,13 +363,12 @@ public partial class SettingsViewModel : ViewModelBase
 
     private void LoadCategory(string categoryName, ObservableCollection<CvarItem> collection)
     {
+        // Теперь база данных отдает готовые, строго типизированные объекты
         if (_db.Categories.TryGetValue(categoryName, out var cvars))
         {
-            foreach (var cvar in cvars)
+            foreach (var def in cvars)
             {
-                // Достаем дефолтное значение из нашей обновленной базы
-                string defVal = _db.DefaultValues.TryGetValue(cvar, out var val) ? val : string.Empty;
-                collection.Add(new CvarItem(cvar, defVal));
+                collection.Add(new CvarItem(def));
             }
         }
     }

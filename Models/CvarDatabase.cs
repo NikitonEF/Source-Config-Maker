@@ -3,42 +3,89 @@ using System.Collections.Generic;
 
 namespace SourceConfigMaker.Models;
 
+public enum CvarControlType { Text, Boolean, Slider }
+
+public class CvarDefinition
+{
+    public string Name { get; set; } = string.Empty;
+    public CvarControlType Type { get; set; } = CvarControlType.Text;
+    public string DefaultValue { get; set; } = string.Empty;
+    public float Min { get; set; } = 0;
+    public float Max { get; set; } = 100;
+    public string ToolTipKey { get; set; } = string.Empty;
+}
+
 public class CvarDatabase
 {
-    // Оставляем структуру для UI
-    public Dictionary<string, string[]> Categories { get; } = new(StringComparer.OrdinalIgnoreCase)
+    public Dictionary<string, List<CvarDefinition>> Categories { get; } = new(StringComparer.OrdinalIgnoreCase)
     {
-        { "ОСНОВНОЕ", new[] { "name", "default_fov", "fps_max", "fps_override", "cl_bob", "cl_hidecorpses", "m_rawinput", "m_filter", "zoom_sensitivity_ratio", "cl_autojump", "cl_autorecord" } },
-        { "СЕТЬ", new[] { "rate", "cl_updaterate", "cl_cmdrate", "ex_interp", "cl_dlmax", "cl_lc", "cl_lw", "cl_cmdbackup", "cl_timeout", "cl_resend", "cl_latency" } },
-        { "ЗВУК", new[] { "volume", "hisound", "bgmvolume", "MP3Volume", "suitvolume", "voice_enable", "voice_scale", "ambient_level", "room_off", "s_a3d", "s_eax" } },
-        { "ВИДЕО", new[] { "gamma", "brightness", "r_drawviewmodel", "gl_vsync", "cl_forceenemymodels", "cl_forceteammatemodels", "hud_fastswitch", "net_graph" } },
-        { "ПРИЦЕЛ", new[] { "cl_cross", "cl_cross_size", "cl_cross_color", "cl_cross_thickness", "cl_cross_gap", "cl_cross_dot_size", "cl_cross_alpha" } }
-    };
-
-    // НОВОЕ: Хардкодим дефолтные значения движка (можешь поправить под свои нужды)
-    public Dictionary<string, string> DefaultValues { get; } = new(StringComparer.OrdinalIgnoreCase)
-    {
-        // ОСНОВНОЕ
-        { "name", "Player" }, { "default_fov", "90" }, { "fps_max", "100" }, { "fps_override", "0" },
-        { "cl_bob", "0.01" }, { "cl_hidecorpses", "0" }, { "m_rawinput", "1" }, { "m_filter", "0" },
-        { "zoom_sensitivity_ratio", "1.2" }, { "cl_autojump", "0" }, { "cl_autorecord", "0" },
-        
-        // СЕТЬ
-        { "rate", "100000" }, { "cl_updaterate", "102" }, { "cl_cmdrate", "105" }, { "ex_interp", "0.01" },
-        { "cl_dlmax", "128" }, { "cl_lc", "1" }, { "cl_lw", "1" }, { "cl_cmdbackup", "2" },
-        { "cl_timeout", "60" }, { "cl_resend", "6" }, { "cl_latency", "0" },
-        
-        // ЗВУК
-        { "volume", "0.5" }, { "hisound", "1" }, { "bgmvolume", "0" }, { "MP3Volume", "0.2" },
-        { "suitvolume", "0.25" }, { "voice_enable", "1" }, { "voice_scale", "1" },
-        { "ambient_level", "0.3" }, { "room_off", "0" }, { "s_a3d", "0" }, { "s_eax", "0" },
-        
-        // ВИДЕО
-        { "gamma", "2.5" }, { "brightness", "1.0" }, { "r_drawviewmodel", "1" }, { "gl_vsync", "0" },
-        { "cl_forceenemymodels", "0" }, { "cl_forceteammatemodels", "0" }, { "hud_fastswitch", "1" }, { "net_graph", "0" },
-        
-        // ПРИЦЕЛ
-        { "cl_cross", "1" }, { "cl_cross_size", "5" }, { "cl_cross_color", "255 255 255" },
-        { "cl_cross_thickness", "1" }, { "cl_cross_gap", "1" }, { "cl_cross_dot_size", "0" }, { "cl_cross_alpha", "255" }
+        { "ОСНОВНОЕ", new List<CvarDefinition>
+            {
+                new() { Name = "name", Type = CvarControlType.Text, DefaultValue = "Player", ToolTipKey = "Lang_Tip_name" },
+                new() { Name = "default_fov", Type = CvarControlType.Slider, DefaultValue = "90", Min = 70, Max = 120, ToolTipKey = "Lang_Tip_default_fov" },
+                new() { Name = "fps_max", Type = CvarControlType.Slider, DefaultValue = "100", Min = 20, Max = 300, ToolTipKey = "Lang_Tip_fps_max" },
+                new() { Name = "fps_override", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_fps_override" },
+                new() { Name = "cl_bob", Type = CvarControlType.Slider, DefaultValue = "0.01", Min = 0, Max = 0.1f, ToolTipKey = "Lang_Tip_cl_bob" },
+                new() { Name = "cl_hidecorpses", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_cl_hidecorpses" },
+                new() { Name = "m_rawinput", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_m_rawinput" },
+                new() { Name = "m_filter", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_m_filter" },
+                new() { Name = "zoom_sensitivity_ratio", Type = CvarControlType.Slider, DefaultValue = "1.2", Min = 0.5f, Max = 2.0f, ToolTipKey = "Lang_Tip_zoom_sensitivity_ratio" },
+                new() { Name = "cl_autojump", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_cl_autojump" },
+                new() { Name = "cl_autorecord", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_cl_autorecord" }
+            }
+        },
+        { "СЕТЬ", new List<CvarDefinition>
+            {
+                new() { Name = "rate", Type = CvarControlType.Slider, DefaultValue = "100000", Min = 20000, Max = 100000, ToolTipKey = "Lang_Tip_rate" },
+                new() { Name = "cl_updaterate", Type = CvarControlType.Slider, DefaultValue = "102", Min = 10, Max = 102, ToolTipKey = "Lang_Tip_cl_updaterate" },
+                new() { Name = "cl_cmdrate", Type = CvarControlType.Slider, DefaultValue = "105", Min = 10, Max = 105, ToolTipKey = "Lang_Tip_cl_cmdrate" },
+                new() { Name = "ex_interp", Type = CvarControlType.Slider, DefaultValue = "0.01", Min = 0, Max = 0.1f, ToolTipKey = "Lang_Tip_ex_interp" },
+                new() { Name = "cl_dlmax", Type = CvarControlType.Slider, DefaultValue = "128", Min = 16, Max = 1024, ToolTipKey = "Lang_Tip_cl_dlmax" },
+                new() { Name = "cl_lc", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_cl_lc" },
+                new() { Name = "cl_lw", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_cl_lw" },
+                new() { Name = "cl_cmdbackup", Type = CvarControlType.Slider, DefaultValue = "2", Min = 0, Max = 10, ToolTipKey = "Lang_Tip_cl_cmdbackup" },
+                new() { Name = "cl_timeout", Type = CvarControlType.Slider, DefaultValue = "60", Min = 30, Max = 999, ToolTipKey = "Lang_Tip_cl_timeout" },
+                new() { Name = "cl_resend", Type = CvarControlType.Slider, DefaultValue = "6", Min = 1, Max = 10, ToolTipKey = "Lang_Tip_cl_resend" },
+                new() { Name = "cl_latency", Type = CvarControlType.Slider, DefaultValue = "0", Min = -100, Max = 100, ToolTipKey = "Lang_Tip_cl_latency" }
+            }
+        },
+        { "ЗВУК", new List<CvarDefinition>
+            {
+                new() { Name = "volume", Type = CvarControlType.Slider, DefaultValue = "0.5", Min = 0, Max = 1.0f, ToolTipKey = "Lang_Tip_volume" },
+                new() { Name = "hisound", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_hisound" },
+                new() { Name = "bgmvolume", Type = CvarControlType.Slider, DefaultValue = "0", Min = 0, Max = 1.0f, ToolTipKey = "Lang_Tip_bgmvolume" },
+                new() { Name = "MP3Volume", Type = CvarControlType.Slider, DefaultValue = "0.2", Min = 0, Max = 1.0f, ToolTipKey = "Lang_Tip_MP3Volume" },
+                new() { Name = "suitvolume", Type = CvarControlType.Slider, DefaultValue = "0.25", Min = 0, Max = 1.0f, ToolTipKey = "Lang_Tip_suitvolume" },
+                new() { Name = "voice_enable", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_voice_enable" },
+                new() { Name = "voice_scale", Type = CvarControlType.Slider, DefaultValue = "1", Min = 0, Max = 2.0f, ToolTipKey = "Lang_Tip_voice_scale" },
+                new() { Name = "ambient_level", Type = CvarControlType.Slider, DefaultValue = "0.3", Min = 0, Max = 1.0f, ToolTipKey = "Lang_Tip_ambient_level" },
+                new() { Name = "room_off", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_room_off" },
+                new() { Name = "s_a3d", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_s_a3d" },
+                new() { Name = "s_eax", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_s_eax" }
+            }
+        },
+        { "ВИДЕО", new List<CvarDefinition>
+            {
+                new() { Name = "gamma", Type = CvarControlType.Slider, DefaultValue = "2.5", Min = 1.8f, Max = 3.0f, ToolTipKey = "Lang_Tip_gamma" },
+                new() { Name = "brightness", Type = CvarControlType.Slider, DefaultValue = "1.0", Min = 0.0f, Max = 2.0f, ToolTipKey = "Lang_Tip_brightness" },
+                new() { Name = "r_drawviewmodel", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_r_drawviewmodel" },
+                new() { Name = "gl_vsync", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_gl_vsync" },
+                new() { Name = "cl_forceenemymodels", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_cl_forceenemymodels" },
+                new() { Name = "cl_forceteammatemodels", Type = CvarControlType.Boolean, DefaultValue = "0", ToolTipKey = "Lang_Tip_cl_forceteammatemodels" },
+                new() { Name = "hud_fastswitch", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_hud_fastswitch" },
+                new() { Name = "net_graph", Type = CvarControlType.Slider, DefaultValue = "0", Min = 0, Max = 3, ToolTipKey = "Lang_Tip_net_graph" }
+            }
+        },
+        { "ПРИЦЕЛ", new List<CvarDefinition>
+            {
+                new() { Name = "cl_cross", Type = CvarControlType.Boolean, DefaultValue = "1", ToolTipKey = "Lang_Tip_cl_cross" },
+                new() { Name = "cl_cross_size", Type = CvarControlType.Slider, DefaultValue = "5", Min = 0, Max = 20, ToolTipKey = "Lang_Tip_cl_cross_size" },
+                new() { Name = "cl_cross_color", Type = CvarControlType.Text, DefaultValue = "255 255 255", ToolTipKey = "Lang_Tip_cl_cross_color" },
+                new() { Name = "cl_cross_thickness", Type = CvarControlType.Slider, DefaultValue = "1", Min = 0, Max = 10, ToolTipKey = "Lang_Tip_cl_cross_thickness" },
+                new() { Name = "cl_cross_gap", Type = CvarControlType.Slider, DefaultValue = "1", Min = -10, Max = 10, ToolTipKey = "Lang_Tip_cl_cross_gap" },
+                new() { Name = "cl_cross_dot_size", Type = CvarControlType.Slider, DefaultValue = "0", Min = 0, Max = 5, ToolTipKey = "Lang_Tip_cl_cross_dot_size" },
+                new() { Name = "cl_cross_alpha", Type = CvarControlType.Slider, DefaultValue = "255", Min = 0, Max = 255, ToolTipKey = "Lang_Tip_cl_cross_alpha" }
+            }
+        }
     };
 }

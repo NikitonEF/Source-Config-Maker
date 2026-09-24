@@ -32,25 +32,61 @@
 
     <UserControl.DataTemplates>
         <DataTemplate x:DataType="vm:CvarItem">
-            <!-- Добавлена третья колонка Auto -->
-            <Grid ColumnDefinitions="*, 100, Auto" Margin="10,5,20,15">
-                <TextBlock Grid.Column="0" Text="{Binding Name}" 
-                           Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" FontWeight="Bold" FontSize="13"
-                           VerticalAlignment="Center" />
+            <!-- Убрали ToolTip.Tip из Grid -->
+            <Grid ColumnDefinitions="1.8*, 3*, Auto" Margin="10,5,20,15">
                 
-                <TextBox Grid.Column="1" Text="{Binding Value, Mode=TwoWay}" 
-                         Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" 
-                         Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
-                         BorderThickness="1" CornerRadius="4" 
-                         VerticalAlignment="Center" MinHeight="30" Padding="5"/>
+                <!-- Обернули имя и иконку [?] -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center" Margin="0,0,10,0">
+                    <TextBlock Text="{Binding Name}" 
+                               Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" 
+                               FontWeight="Bold" FontSize="13"
+                               VerticalAlignment="Center"/>
+                    
+                    <!-- Иконка подсказки (показывается только если есть перевод) -->
+                    <TextBlock Text="[?]" 
+                               Foreground="#888888" FontSize="11" FontWeight="Bold"
+                               VerticalAlignment="Center" Cursor="Help"
+                               ToolTip.Tip="{Binding ToolTipText}"
+                               IsVisible="{Binding ToolTipText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                </StackPanel>
+                
+                <!-- Обертка для контролов. Рисуется только тот, чей IsVisible == True -->
+                <Panel Grid.Column="1">
+                    
+                    <!-- 1. ТЕКСТ -->
+                    <TextBox Text="{Binding Value, Mode=TwoWay}" 
+                             IsVisible="{Binding IsTextControl}"
+                             Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}" 
+                             Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                             BorderThickness="1" CornerRadius="4" 
+                             VerticalAlignment="Center" MinHeight="30" Padding="5"/>
 
-                <!-- Кнопка сброса текущего параметра -->
+                    <!-- 2. БИНАРНЫЙ (Тумблер) -->
+                    <ToggleSwitch IsChecked="{Binding BoolValue, Mode=TwoWay}"
+                                  IsVisible="{Binding IsBoolControl}"
+                                  OnContent="1" OffContent="0"
+                                  VerticalAlignment="Center"/>
+
+                    <!-- 3. ПОЛЗУНОК -->
+                    <Grid ColumnDefinitions="*, 60" IsVisible="{Binding IsSliderControl}">
+                        <Slider Grid.Column="0" Value="{Binding SliderValue, Mode=TwoWay}" 
+                                Minimum="{Binding Min}" Maximum="{Binding Max}" 
+                                VerticalAlignment="Center" Margin="0,0,15,0"/>
+                        <TextBox Grid.Column="1" Text="{Binding Value, Mode=TwoWay}" 
+                                 Background="{DynamicResource SystemControlBackgroundChromeMediumBrush}"
+                                 Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}"
+                                 BorderThickness="1" CornerRadius="4" Padding="5"
+                                 VerticalAlignment="Center"/>
+                    </Grid>
+                </Panel>
+
+                <!-- Кнопка сброса -->
                 <Button Grid.Column="2" Content="↺" 
                         Command="{Binding ResetCommand}" 
                         Background="Transparent" Foreground="Gray" 
                         FontSize="16" FontWeight="Bold"
                         Cursor="Hand" Margin="10,0,0,0" Padding="5,0"
-                        VerticalAlignment="Center" ToolTip.Tip="Reset to default"/>
+                        VerticalAlignment="Center"/>
             </Grid>
         </DataTemplate>
     </UserControl.DataTemplates>
@@ -82,7 +118,7 @@
                                             <TextBlock Text="{Binding Name}" Foreground="{DynamicResource SystemControlForegroundBaseHighBrush}" VerticalAlignment="Center"/>
                                         </Border>
                                         
-                                        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="10,10,0,10">
+                                        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Padding="10,10,0,10" PointerWheelChanged="InnerScrollViewer_PointerWheelChanged">
                                             <ItemsControl ItemsSource="{Binding Commands}">
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>

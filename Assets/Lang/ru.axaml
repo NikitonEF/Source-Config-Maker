@@ -22,6 +22,8 @@
     <x:String x:Key="Lang_CommandPlaceholder">Начните вводить команду...</x:String>
     <x:String x:Key="Lang_Btn_Unbind">UNBIND</x:String>
     <x:String x:Key="Lang_Btn_Ok">ОК</x:String>
+    <x:String x:Key="Lang_DefaultBindPrefix">(По умолчанию:</x:String>
+    <x:String x:Key="Lang_DefaultBindSuffix">)</x:String>
 
     <!-- New Config Overlay -->
     <x:String x:Key="Lang_NewConfigTitle">Создать новый конфиг?</x:String>
@@ -56,4 +58,62 @@
     <x:String x:Key="Lang_Cat_Combat">Бой</x:String>
     <x:String x:Key="Lang_Cat_Interface">Интерфейс</x:String>
     <x:String x:Key="Lang_Cat_Voice">Связь</x:String>
+
+    <!-- Settings Tooltips: ОСНОВНОЕ -->
+    <x:String x:Key="Lang_Tip_name">Внутриигровое имя игрока.</x:String>
+    <x:String x:Key="Lang_Tip_default_fov">Угол обзора (по умолчанию 90).</x:String>
+    <x:String x:Key="Lang_Tip_fps_max">Максимальное ограничение кадров в секунду (FPS).</x:String>
+    <x:String x:Key="Lang_Tip_fps_override">Разрешить FPS превышать значение 100.</x:String>
+    <x:String x:Key="Lang_Tip_cl_bob">Сила раскачивания оружия и камеры при беге.</x:String>
+    <x:String x:Key="Lang_Tip_cl_hidecorpses">Скрывать трупы убитых для повышения производительности.</x:String>
+    <x:String x:Key="Lang_Tip_m_rawinput">Прямое подключение мыши (игнорирует настройки акселерации Windows).</x:String>
+    <x:String x:Key="Lang_Tip_m_filter">Включить программное сглаживание движений мыши.</x:String>
+    <x:String x:Key="Lang_Tip_zoom_sensitivity_ratio">Множитель чувствительности мыши при использовании оптического прицела.</x:String>
+    <x:String x:Key="Lang_Tip_cl_autojump">Включить автоматический прыжок при удержании пробела.</x:String>
+    <x:String x:Key="Lang_Tip_cl_autorecord">Автоматически записывать POV-демо каждого матча.</x:String>
+
+    <!-- Settings Tooltips: СЕТЬ -->
+    <x:String x:Key="Lang_Tip_rate">Максимальное количество байт в секунду, получаемых от сервера.</x:String>
+    <x:String x:Key="Lang_Tip_cl_updaterate">Количество пакетов обновлений, запрашиваемых у сервера в секунду.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cmdrate">Количество пакетов с командами, отправляемых на сервер в секунду.</x:String>
+    <x:String x:Key="Lang_Tip_ex_interp">Степень интерполяции моделей (0.01 для соревновательной игры).</x:String>
+    <x:String x:Key="Lang_Tip_cl_dlmax">Максимальная скорость скачивания пользовательских ресурсов сервера.</x:String>
+    <x:String x:Key="Lang_Tip_cl_lc">Включить компенсацию задержки (Lag Compensation).</x:String>
+    <x:String x:Key="Lang_Tip_cl_lw">Включить клиентское прогнозирование эффектов стрельбы и оружия.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cmdbackup">Количество дублирующихся команд для предотвращения потери пакетов (Choke).</x:String>
+    <x:String x:Key="Lang_Tip_cl_timeout">Время (в секундах) до автоматического отключения при потере связи с сервером.</x:String>
+    <x:String x:Key="Lang_Tip_cl_resend">Задержка в секундах перед повторной попыткой подключения к серверу.</x:String>
+    <x:String x:Key="Lang_Tip_cl_latency">Искусственная задержка (пинг) для локального тестирования.</x:String>
+
+    <!-- Settings Tooltips: ЗВУК -->
+    <x:String x:Key="Lang_Tip_volume">Общая громкость игры (от 0.0 до 1.0).</x:String>
+    <x:String x:Key="Lang_Tip_hisound">Использовать высококачественный звук (22kHz).</x:String>
+    <x:String x:Key="Lang_Tip_bgmvolume">Громкость фоновой музыки качества CD.</x:String>
+    <x:String x:Key="Lang_Tip_MP3Volume">Громкость фоновой музыки в формате MP3.</x:String>
+    <x:String x:Key="Lang_Tip_suitvolume">Громкость голосовых оповещений защитного костюма HEV.</x:String>
+    <x:String x:Key="Lang_Tip_voice_enable">Включить прием и передачу внутриигрового голосового чата.</x:String>
+    <x:String x:Key="Lang_Tip_voice_scale">Уровень громкости других игроков в голосовом чате.</x:String>
+    <x:String x:Key="Lang_Tip_ambient_level">Уровень громкости фоновых звуков на карте.</x:String>
+    <x:String x:Key="Lang_Tip_room_off">Отключить пространственные эффекты (эхо и реверберацию).</x:String>
+    <x:String x:Key="Lang_Tip_s_a3d">Включить аппаратную обработку звука A3D.</x:String>
+    <x:String x:Key="Lang_Tip_s_eax">Включить аппаратную обработку звука EAX.</x:String>
+
+    <!-- Settings Tooltips: ВИДЕО -->
+    <x:String x:Key="Lang_Tip_gamma">Гамма (баланс белого и черного).</x:String>
+    <x:String x:Key="Lang_Tip_brightness">Уровень яркости экрана.</x:String>
+    <x:String x:Key="Lang_Tip_r_drawviewmodel">Отображать модель оружия от первого лица на экране.</x:String>
+    <x:String x:Key="Lang_Tip_gl_vsync">Включить вертикальную синхронизацию для предотвращения разрывов кадров.</x:String>
+    <x:String x:Key="Lang_Tip_cl_forceenemymodels">Принудительно установить единую модель для всех противников.</x:String>
+    <x:String x:Key="Lang_Tip_cl_forceteammatemodels">Принудительно установить единую модель для всех союзников.</x:String>
+    <x:String x:Key="Lang_Tip_hud_fastswitch">Быстрое переключение оружия колесиком или цифрами (без подтверждения кликом).</x:String>
+    <x:String x:Key="Lang_Tip_net_graph">Отображение сетевой статистики и FPS (0 = Выкл, 1-3 = Разные виды графиков).</x:String>
+
+    <!-- Settings Tooltips: ПРИЦЕЛ -->
+    <x:String x:Key="Lang_Tip_cl_cross">Включить кастомный прицел вместо стандартного.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_size">Размер (длина) линий прицела.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_color">Цвет прицела в формате RGB (например: 255 0 0 для красного).</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_thickness">Толщина линий прицела.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_gap">Расстояние (зазор) от центра экрана до начала линий прицела.</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_dot_size">Размер центральной точки (установите 0 для отключения).</x:String>
+    <x:String x:Key="Lang_Tip_cl_cross_alpha">Степень непрозрачности прицела (0 - полностью прозрачный, 255 - сплошной).</x:String>
 </ResourceDictionary>

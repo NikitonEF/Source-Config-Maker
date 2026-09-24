@@ -36,17 +36,21 @@
             <!-- ОБРАТИ ВНИМАНИЕ: Добавлена новая колонка (Grid.Column="4") для кнопки сброса -->
             <Grid Grid.Row="0" ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto, Auto" Margin="20,5,20,5">
 
-                <Button Grid.Column="0" Content="{DynamicResource Lang_OpenConfig}" Command="{Binding OpenConfigCommand}" CommandParameter="{Binding $parent[Window]}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#4682B4" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
-                <Button Grid.Column="1" Content="{DynamicResource Lang_NewConfig}" Command="{Binding PromptNewConfigCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#DAA520" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
-                <Button Grid.Column="2" Content="{DynamicResource Lang_SaveBackup}" Command="{Binding SaveConfigCommand}" CommandParameter="{Binding $parent[Window]}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#3CB371" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
-                <Button Grid.Column="3" Content="{DynamicResource Lang_UnbindAll}" Command="{Binding ToggleUnbindAllCommand}" Background="{Binding UnbindAllColor}" Foreground="White" FontWeight="Bold" FontSize="12" BorderBrush="#C85050" BorderThickness="0,3,0,0" CornerRadius="4" Padding="15,8" Margin="0,0,10,0"/>
+                <Button Classes="DynamicColorBtn" Grid.Column="0" Content="{DynamicResource Lang_OpenConfig}" Command="{Binding OpenConfigCommand}" CommandParameter="{Binding $parent[Window]}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#4682B4" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
+                <Button Classes="DynamicColorBtn" Grid.Column="1" Content="{DynamicResource Lang_NewConfig}" Command="{Binding PromptNewConfigCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#DAA520" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
+                <Button Classes="DynamicColorBtn" Grid.Column="2" Content="{DynamicResource Lang_SaveBackup}" Command="{Binding SaveConfigCommand}" CommandParameter="{Binding $parent[Window]}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#3CB371" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Padding="15,8"/>
                 
-                <!-- НОВАЯ КНОПКА ГЛОБАЛЬНОГО СБРОСА -->
-                <Button Grid.Column="4" Content="↺ Reset Binds" Command="{Binding PromptResetBindsCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#FF8C00" BorderThickness="0,3,0,0" CornerRadius="4" Padding="15,8"/>
+                <!-- ИСПРАВЛЕНО: Foreground теперь берется из TopBarForeground, чтобы синхронизироваться с темой -->
+                <Button Classes="DynamicColorBtn" Grid.Column="3" Content="{DynamicResource Lang_UnbindAll}" Command="{Binding ToggleUnbindAllCommand}" Background="{Binding UnbindAllColor}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#C85050" BorderThickness="0,3,0,0" CornerRadius="4" Padding="15,8" Margin="0,0,10,0"/>
+                
+                <Button Classes="DynamicColorBtn" Grid.Column="4" Content="↺ Reset Binds" Command="{Binding PromptResetBindsCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="12" BorderBrush="#FF8C00" BorderThickness="0,3,0,0" CornerRadius="4" Padding="15,8"/>
 
-                <Button Grid.Column="6" Content="👁" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontSize="16" BorderBrush="#4682B4" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
-                <Button Grid.Column="7" Content="🎯" Command="{Binding ToggleCrosshairCommand}" Background="{Binding CrosshairToggleColor}" Foreground="White" FontSize="16" BorderBrush="#B43C3C" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
-                <Button Grid.Column="8" Content="{Binding ThemeIcon}" Command="{Binding ToggleThemeCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontSize="16" BorderBrush="{Binding ThemeHatColor}" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
+                <Button Classes="DynamicColorBtn" Grid.Column="6" Content="👁" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontSize="16" BorderBrush="#4682B4" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
+                
+                <!-- ИСПРАВЛЕНО: Foreground="{Binding TopBarForeground}" -->
+                <Button Classes="DynamicColorBtn" Grid.Column="7" Content="🎯" Command="{Binding ToggleCrosshairCommand}" Background="{Binding CrosshairToggleColor}" Foreground="{Binding TopBarForeground}" FontSize="16" BorderBrush="#B43C3C" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
+                
+                <Button Classes="DynamicColorBtn" Grid.Column="8" Content="{Binding ThemeIcon}" Command="{Binding ToggleThemeCommand}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontSize="16" BorderBrush="{Binding ThemeHatColor}" BorderThickness="0,3,0,0" CornerRadius="4" Margin="0,0,10,0" Width="42" Padding="0,8" HorizontalContentAlignment="Center"/>
                 <ComboBox Grid.Column="9" SelectedIndex="0" Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" FontSize="13" FontWeight="Bold" BorderBrush="#9370DB" BorderThickness="0,3,0,0" CornerRadius="4" Padding="10,8" VerticalAlignment="Stretch">
                     <ComboBoxItem Tag="en">EN</ComboBoxItem>
                     <ComboBoxItem Tag="ru">RU</ComboBoxItem>
@@ -82,8 +86,12 @@
                                 <TextBlock Text="{DynamicResource Lang_EditBindTitle}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
                                 <TextBlock Text="{Binding EditingKeyName}" Foreground="{Binding TopBarForeground}" FontWeight="Bold" FontSize="14" VerticalAlignment="Center"/>
                             </StackPanel>
-                            <Button Content="{Binding DefaultBindHint}" Command="{Binding ApplyDefaultBindCommand}" IsVisible="{Binding HasDefaultBind}" Foreground="DodgerBlue" Background="Transparent" Padding="0" Cursor="Hand" VerticalAlignment="Center"/>
-                        </StackPanel>
+                                <StackPanel Orientation="Horizontal" IsVisible="{Binding HasDefaultBind}" VerticalAlignment="Center">
+                                    <TextBlock Text="{DynamicResource Lang_DefaultBindPrefix}" Foreground="Gray" FontSize="13" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                                    <Button Content="{Binding DefaultBindHint}" Command="{Binding ApplyDefaultBindCommand}" Foreground="DodgerBlue" Background="Transparent" FontSize="13" Padding="0" Cursor="Hand" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource Lang_DefaultBindSuffix}" Foreground="Gray" FontSize="13" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
                         <TextBlock Text="{DynamicResource Lang_CommandLabel}" Foreground="Gray" FontSize="12" Margin="0,5,0,0"/>
                         <AutoCompleteBox Text="{Binding EditingCommandText, Mode=TwoWay}" ItemsSource="{Binding PopularCommands}" FilterMode="Contains" MinimumPrefixLength="1" PlaceholderText="{DynamicResource Lang_CommandPlaceholder}" Background="{Binding TopBarButtonBackground}" Foreground="{Binding TopBarForeground}" Height="35"/>
                         <Grid ColumnDefinitions="*, *" Margin="0,15,0,0">
